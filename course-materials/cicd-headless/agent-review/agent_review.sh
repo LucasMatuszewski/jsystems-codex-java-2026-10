@@ -17,6 +17,9 @@
 #     opencode any provider key opencode supports, e.g. OPENROUTER_API_KEY
 # Optional:
 #   REVIEW_MODEL                      model id (OpenRouter ids with openrouter)
+#   CODEX_SANDBOX                     read-only (default). In a Docker job without user
+#                                     namespaces bubblewrap cannot start; there the container
+#                                     is the boundary, so set danger-full-access.
 #   JIRA_BASE_URL, JIRA_EMAIL, JIRA_API_TOKEN
 #                                     adds the Jira issue named in the branch
 #                                     (e.g. feature/SHOP-123-returns) to the prompt
@@ -87,7 +90,7 @@ case "$AGENT" in
       --allowedTools "Read" "Grep" "Glob" "Bash(git diff:*)" "Bash(git log:*)" "Bash(git show:*)" \
       > "$OUT/review.md" ;;
   codex)
-    codex exec --sandbox read-only --skip-git-repo-check --ephemeral \
+    codex exec --sandbox "${CODEX_SANDBOX:-read-only}" --skip-git-repo-check --ephemeral \
       "${CODEX_OPENROUTER[@]}" ${MODEL:+-m "$MODEL"} \
       -o "$OUT/review.md" "$PROMPT" > "$OUT/codex.log" ;;
   opencode)
