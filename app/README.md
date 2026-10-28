@@ -1,4 +1,8 @@
-# App
+# Optional greenfield scaffold
+
+This folder is retained as an inert library example. The Codex Java course uses separate jFTP and Cargo Tracker clones and read-only Fineract analysis. Do not scaffold an application here for those exercises. Follow the root AGENTS.md and the named exercise.
+
+# Original scaffold checklist
 
 This folder will contain the application built during the course.
 

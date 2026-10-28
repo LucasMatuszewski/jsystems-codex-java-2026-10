@@ -2,11 +2,13 @@
 
 ## Project
 
-This is a **course project** for the "COURSE-NAME" training organized by COURSE-ORGANIZER, COURSE-DURATION (COURSE-DATES), remote on cloud VMs. The primary taught agent is OpenAI Codex CLI, with Claude Code and GitHub Copilot as covered alternatives. The group selects the actual application and change. Greenfield work starts from the empty scaffold and defines the product live; legacy work uses a separate clone of the original application. Its domain, stack and architecture come from the real task and inspected sources, not historical course examples: research → application or feature PRD → ADR → implementation with agents.
+This is the **participant materials repository** for "OpenAI Codex w codziennej pracy programistycznej przy projektach Java", organized by JSystems, 28-30.10.2026, three days, 09:00-16:00 Europe/Warsaw. The taught tool is OpenAI Codex. Participants use prepared Linux VMs, trainer-provided ChatGPT Business accounts and their own GitLab.com projects with glab.
 
-This is only the **base starting repository** for the course; concrete decisions are made live with the group.
+The agreed route is jFTP legacy discovery on day 1, Eclipse Cargo Tracker analysis and a read-only cargo-status feature on day 2, then review, GitLab merge requests, javax-to-jakarta migration and read-only Apache Fineract analysis on day 3. jFTP and Cargo Tracker are separate clones; never commit their sources here. Fineract is read-only. No chatbot or Spring AI service is required.
 
-Chat in Polish unless the user asks for another language. Repository documentation uses English unless another project language is agreed. The trainer chooses the teaching language separately. This is a greenfield scaffold, not an agreed product specification. For a legacy-led course, keep materials separate and work in the original application clone; adapt these instructions to its actual stack and verification commands.
+The [course agenda](course-materials/course-agenda.md) preserves the offered program and records the agreed teaching route. The [materials hub](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/) provides the day pages. Exercise instructions are in course-materials/exercises/cargo-tracker.md, cargo-tracker-tickets.md and fineract-multi-agent.md; open them only for an explicitly requested exercise.
+
+Chat in Polish unless the user requests another language. Application documentation uses English; participant instructions use Polish. The library is not an application specification. For application work, inspect the actual separate checkout, PRD, ADRs, build descriptors and commands. Never assume a runtime, framework or build tool from these examples.
 
 **Key docs** (created during the course — load only when in doubt):
 - `docs/PRD.md` — product requirements and acceptance criteria
@@ -18,7 +20,7 @@ Chat in Polish unless the user asks for another language. Repository documentati
 ## Repository Layout
 
 ```
-app/                 Application built during the course (start: empty scaffold)
+app/                 Inert scaffold; course applications live in separate clones
 assets/              Design tokens, logo, favicon
 docs/                PRD, ADR, design system
 course-materials/    Notes, scripts, examples, research
@@ -84,7 +86,7 @@ Verify only the scope relevant to your change. If the change affects runtime beh
 
 **Verification:** For runtime changes, start the real application and finish with Manual QA. Record compilation/build, test execution and startup as separate checks, including discovery counts and skips. A successful build or E2E run alone does not establish that the app works. Documentation-only changes use diff, link and consistency checks and do not require application startup. Fix errors and warnings introduced by the change; report pre-existing failures without hiding them.
 
-**Env Vars:** See `.env.example` (OPENROUTER_API_KEY required)
+**Env Vars:** No LLM API key is required for the course exercises. `.env.example` is an inert example. Inspect the actual application configuration; never read secrets.
 
 ### Commit Rules
 - Commit only after verification passes and the changed scope is in a working state.

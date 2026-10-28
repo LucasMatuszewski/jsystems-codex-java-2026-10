@@ -1,19 +1,27 @@
-# COURSE-NAME (COURSE-ORGANIZER)
+# OpenAI Codex w codziennej pracy programistycznej przy projektach Java (JSystems)
 
-**Materiały szkoleniowe: [devpowers.com/szkolenia/COURSE-SITE](https://devpowers.com/szkolenia/COURSE-SITE/)**
+**Materiały szkoleniowe: [devpowers.com/szkolenia/jsystems/codex-java-2026-10](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/)**
 
-- [Program i wszystkie materiały](https://devpowers.com/szkolenia/COURSE-SITE/agenda.html)
-- [Slajdy](https://devpowers.com/szkolenia/COURSE-SITE/agenda.html#prezentacje)
-- [Biblioteka promptów](https://devpowers.com/szkolenia/COURSE-SITE/prompty.html) · [Ćwiczenia](https://devpowers.com/szkolenia/COURSE-SITE/cwiczenia.html) · [Checklisty](https://devpowers.com/szkolenia/COURSE-SITE/checklisty.html) · [Słownik AI](https://devpowers.com/szkolenia/COURSE-SITE/slownik-ai.html)
-- [Wyniki ankiety przed szkoleniem](https://devpowers.com/szkolenia/COURSE-SITE/raport-przed.html) · [Odpowiedzi na pytania z kursu](https://devpowers.com/szkolenia/COURSE-SITE/pytania.html) (uzupełniamy po każdym dniu)
+- [Program i wszystkie materiały](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/agenda.html)
+- [Slajdy](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/agenda.html#prezentacje)
+- [Biblioteka promptów](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/prompty.html) · [Ćwiczenia](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/cwiczenia.html) · [Checklisty](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/checklisty.html) · [Słownik AI](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/slownik-ai.html)
+- [Pytania i odpowiedzi](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/pytania.html)
 
 Aktualny [program szkolenia](course-materials/course-agenda.md).
 
-Repozytorium uczestnika szkolenia COURSE-ORGANIZER (COURSE-DATES, online, 09:00-16:00). W czasie szkolenia (COURSE-DURATION) przechodzimy pełny cykl wytwarzania oprogramowania z agentami AI: od pomysłu i wymagań (PRD), przez decyzje architektoniczne (ADR), plan, implementację i testy, po code review, bezpieczeństwo i CI/CD.
+Repozytorium uczestnika szkolenia JSystems (28-30.10.2026, online, 09:00-16:00). W czasie szkolenia (3 dni) przechodzimy pełny cykl wytwarzania oprogramowania z agentami AI: od pomysłu i wymagań (PRD), przez decyzje architektoniczne (ADR), plan, implementację i testy, po code review, bezpieczeństwo i CI/CD.
 
-Głównym agentem warsztatu jest **OpenAI Codex CLI**, a te same koncepcje pokazujemy także w **Claude Code** i **GitHub Copilot**. Możesz pracować w swoim stosie (np. C# / .NET, Java, Python); przykład prowadzącego powstaje w TypeScript.
+Głównym narzędziem jest **OpenAI Codex**: CLI na przygotowanej VM Linux oraz porównanie pracy w aplikacji ChatGPT w trybie Codex, IntelliJ IDEA i VS Code. Java jest kontekstem ćwiczeń, a nie osobnym kursem frameworków. Trener zapewnia konto ChatGPT Business; firmowe Enterprise pozostaje do codziennej pracy. GitLab.com służy do własnych projektów, issues i merge requestów przez `glab`.
 
-Głównym projektem grupy jest aplikacja do obsługi zwrotów i reklamacji elektroniki, rozwijana według PRD uzgodnionego podczas zajęć. Możesz też pracować nad własnym pomysłem, stosując ten sam proces. Po PRD omów architekturę i biblioteki, zapisz decyzje w ADR, ułóż plan i zależności zadań, a potem implementuj, testuj i przeglądaj zmiany przed utworzeniem PR. Przykładowy prompt PRD w `course-materials/` nie zastępuje dokumentu poprawionego z grupą.
+## Trzy projekty, trzy dni
+
+1. **28.10, jFTP:** [pełny prompt legacy](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/prompty.html#P18-jftp-legacy), inwentaryzacja, AGENTS.md, kontekst i skills A/B. Klon aplikacji trzymamy osobno od materiałów.
+2. **29.10, Eclipse Cargo Tracker:** [analiza, status ładunku, PRD, ADR, TDD, UI i worktree](course-materials/exercises/cargo-tracker.md). Osobny klon aplikacji Jakarta EE, bez kopiowania jej kodu do tego repozytorium.
+3. **30.10, jakość i duży projekt:** [zgłoszenia i merge requesty](course-materials/exercises/cargo-tracker-tickets.md), migracja javax na jakarta oraz [Apache Fineract: analiza wielu agentów](course-materials/exercises/fineract-multi-agent.md). Fineract analizujemy tylko do odczytu, bez uruchamiania usług finansowych.
+
+[Otwórz dzień 1](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/dzien-1.html) · [dzień 2](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/dzien-2.html) · [dzień 3](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/dzien-3.html).
+
+Nie budujemy chatbota ani nowej usługi Spring AI. Dokumenty funkcji powstają podczas ćwiczeń w klonie Cargo Tracker, po analizie jego rzeczywistego kodu. [Program z oferty i uzgodniona trasa](course-materials/course-agenda.md) pokazują tę zmianę.
 
 ## Biblioteka dodatkowa
 
