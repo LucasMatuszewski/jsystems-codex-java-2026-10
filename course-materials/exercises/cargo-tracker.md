@@ -48,15 +48,33 @@ Brak `idea` w PATH nie wyklucza instalacji graficznej. Otwórz IntelliJ z pulpit
 codex login status
 ```
 
-```powershell
-glab auth login --hostname gitlab.com --web --git-protocol https
-```
+Pracujemy na GitLabie kursu (GitLab 19.5, self-managed), nie na GitLab.com. Login, hasło i token dostajesz od trenera w prywatnej wiadomości. Tokena nie wklejaj na czat ani do Codex.
 
-Ustaw własny login. Projekt ma powstać w przestrzeni osobistej, bez grupy. Dla Cargo używamy zwykłego klonu: wysyłanie płytkiego klonu do nowego serwera może zostać odrzucone. Zachowujemy licencję i historię upstreamu.
+```powershell
+$env:GL = 'jsystems-gitlab.polandcentral.cloudapp.azure.com'
+```
 
 ```powershell
 $env:GITLAB_LOGIN = 'WPISZ_SWÓJ_LOGIN'
 ```
+
+```powershell
+$t = Read-Host 'Token'
+$t | glab auth login --hostname $env:GL --stdin --git-protocol https --setup-git-credential-helper
+Remove-Variable t
+```
+
+Na Windows glab zapisuje pomocnika logowania Git ze ścieżką z odwrotnymi ukośnikami, której Git nie uruchomi (`git push` zgłasza wtedy `command not found`). Ta komenda zamienia go na `glab` z PATH:
+
+```powershell
+git config --global --replace-all "credential.https://$($env:GL).helper" '!glab auth git-credential' 'glab'
+```
+
+```powershell
+glab auth status --hostname $env:GL
+```
+
+Projekt ma powstać w przestrzeni osobistej, bez grupy. Dla Cargo używamy zwykłego klonu: wysyłanie płytkiego klonu do nowego serwera może zostać odrzucone. Zachowujemy licencję i historię upstreamu. Jeśli masz już klon `cargo-tracker` z dnia 1, pomiń trzy pierwsze komendy poniżej, a istniejący remote `origin` usuń poleceniem `git remote remove origin`.
 
 ```powershell
 git clone --branch master https://github.com/eclipse-ee4j/cargotracker.git cargo-tracker
@@ -75,11 +93,11 @@ git fetch upstream jakartaee8:jakartaee8
 ```
 
 ```powershell
-glab repo create "gitlab.com/${env:GITLAB_LOGIN}/cargo-tracker-codex" --private --defaultBranch master --skipGitInit
+glab repo create "${env:GL}/${env:GITLAB_LOGIN}/cargo-tracker-codex" --private --defaultBranch master --skipGitInit
 ```
 
 ```powershell
-git remote add origin "https://gitlab.com/${env:GITLAB_LOGIN}/cargo-tracker-codex.git"
+git remote add origin "https://${env:GL}/${env:GITLAB_LOGIN}/cargo-tracker-codex.git"
 ```
 
 ```powershell
@@ -253,7 +271,7 @@ Przygotuj docs/mr-description.md: problem, kontrakt endpointu, przykład odpowie
 ```
 
 ```powershell
-glab mr create --repo "gitlab.com/${env:GITLAB_LOGIN}/cargo-tracker-codex" --source-branch feature/cargo-status --target-branch master --title 'Dodaj odczyt statusu ładunku' --description-file docs/mr-description.md --draft --yes
+glab mr create --repo "${env:GL}/${env:GITLAB_LOGIN}/cargo-tracker-codex" --source-branch feature/cargo-status --target-branch master --title 'Dodaj odczyt statusu ładunku' --description-file docs/mr-description.md --draft --yes
 ```
 
 Sprawdź URL i diff MR, gałąź docelową `master` oraz własny projekt. Wynik: draft MR, bez automatycznego merge. Upstream Cargo Tracker nie ma .gitlab-ci.yml, więc samo utworzenie MR nie uruchomi naszych testów w GitLab CI. Minimalny pipeline przygotujesz i sprawdzisz przez glab ci lint w [P32](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/prompty.html#P32-gitlab-mr) przy własnym zadaniu. Lint sprawdza konfigurację, a nie wynik testów. GitLab.com może wymagać weryfikacji konta przed udostępnieniem shared runners. Lokalny wynik i stan CI raportuj osobno, bez obietnicy zielonego pipeline.
