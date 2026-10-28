@@ -1,6 +1,6 @@
 # Cargo Tracker: od analizy do merge requestu
 
-Pracujemy na aplikacji Jakarta EE, ale ćwiczymy prowadzenie agenta: zakres, dowody, testy, podział pracy i review. Każdy pracuje na własnej VM i we własnym projekcie GitLab.com. Dzień 2: kroki 1-5. Dzień 3: krok 6.
+Pracujemy na aplikacji Jakarta EE, ale ćwiczymy prowadzenie agenta: zakres, dowody, testy, podział pracy i review. Każdy pracuje na własnej VM i we własnym projekcie GitLab.com. Dzień 2: przygotowanie oraz kroki 1-4, do niezależnego review. Dzień 3: krok 5 (pierwszy MR), własne zgłoszenie i krok 6, po analizie Fineract. Harmonogram główny jest na stronach dni; czasy poniżej dotyczą pracy, do której dochodzą wyjaśnienia i kontrole grupy.
 
 ## Przygotowanie VM i własnego projektu, 15-25 minut
 
@@ -126,12 +126,18 @@ Po zakończeniu wariantu 18080 możesz użyć w drugim terminalu polecenia zatrz
 
 Następnie zamknij oczekujący proces cargo:run przez Ctrl+C. Przekroczenie limitu czasu curl dla SSE jest spodziewane, jeśli strumień nadal pozostaje otwarty.
 
+Ustaw rzeczywiście uruchomiony port (8080 domyślnie, 18080 w wariancie powyżej):
+
 ```powershell
-curl.exe -i --max-time 10 http://localhost:8080/cargo-tracker/public/track.xhtml
+$CargoBaseUrl = 'http://localhost:8080/cargo-tracker'
 ```
 
 ```powershell
-curl.exe -i --max-time 10 'http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path?origin=SESTO&destination=AUMEL'
+curl.exe -i --max-time 10 "$CargoBaseUrl/public/track.xhtml"
+```
+
+```powershell
+curl.exe -i --max-time 10 "$CargoBaseUrl/rest/graph-traversal/shortest-path?origin=SESTO&destination=AUMEL"
 ```
 
 Mapa do pierwszego przeglądu: `src/main/java/org/eclipse/cargotracker/domain/model` to domena, `application/internal` to przypadki użycia, `infrastructure/persistence/jpa` to repozytoria, `interfaces` to adaptery REST/Faces/SSE. `org/eclipse/pathfinder` symuluje zewnętrzne wyznaczanie tras. `src/main/webapp/public/track.xhtml` korzysta z `interfaces/tracking/web/Track.java`. To pojedynczy moduł Maven WAR, z wieloma pakietami logicznymi.
@@ -154,7 +160,7 @@ Przeanalizuj tylko odczyt śledzenia ładunku w Cargo Tracker. Nie edytuj plikó
 
 Sprawdź trzy wskazane pliki samodzielnie. Oczekiwany wynik: mapa przepływu i krótki projekt instrukcji. Zapisz zaakceptowane instrukcje w `src/main/java/org/eclipse/cargotracker/interfaces/tracking/AGENTS.md`, ręcznie albo w nowej sesji z prawem zapisu. Nie proś sesji `read-only` o zapis.
 
-## 2. PRD, plan i czerwony test, 35 minut
+## 2. PRD, ADR, plan i czerwony test, 60 minut
 
 Cel: najpierw uzgodnić kontrakt. Przełącz się do nowej sesji z prawem zapisu i gałęzi funkcji.
 
@@ -166,17 +172,31 @@ git switch -c feature/cargo-status
 codex -s workspace-write
 ```
 
-Prompt:
+Wklej [P30: pełny kontrakt cargo-status](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/prompty.html#P30-cargo-spec). To główny prompt do specyfikacji; P01/P02/P19 są przykładami do pogłębienia, nie drugim przebiegiem zadania. Przed uruchomieniem sprawdź wykrywanie write-prd i write-adr na koncie szkoleniowym. Brak skilla zgłoś trenerowi, nie proś agenta o odczyt biblioteki poza jego workspace.
 
-```text
-Przygotuj docs/PRD.md i docs/plan.md dla GET /rest/cargo/{trackingId}/status. Najpierw przeczytaj istniejące instrukcje i kod. Kontrakt: 200 application/json z trackingId, transportStatus, routingStatus, misdirected i lastKnownLocation (UN/LOCODE); 404 dla poprawnego, nieznanego ID; 400 dla ID spoza [A-Za-z0-9]{4,32}. Nie normalizuj wielkości liter. Brak ID w URL pozostaje zwykłym brakiem trasy. Zwracaj DTO, bez encji JPA, bez store(), zdarzeń i JMS. Nie zmieniaj /rest/cargo SSE. Opisz przypadki testowe i kolejność red-green-refactor. Zapisz dokumenty i zaczekaj na moje potwierdzenie przed implementacją. Następnie, po potwierdzeniu, przygotuj tylko testy kontraktu w nowym CargoStatusResourceTest; pokaż ich oczekiwaną porażkę i jej przyczynę. Jeśli trzeba dodać bibliotekę testową, uzasadnij to przed zmianą POM.
+Kontrakt do sprawdzenia z PRD: GET `/rest/cargo/{trackingId}/status`; 200 application/json z trackingId, transportStatus, routingStatus, misdirected i lastKnownLocation (UN/LOCODE); 404 dla poprawnego nieznanego ID; 400 dla ID spoza `[A-Za-z0-9]{4,32}`. Bez normalizacji wielkości liter, bez zapisu, JMS i zmian istniejącego SSE. Uzgodnij reprezentację nieznanej lokalizacji przed testem. Sprawdź znaczenie statusów w Delivery.
+
+Po zatwierdzeniu dokumentów zleć w sesji autora tylko kompilujący się test czarnej skrzynki `src/test/java/org/eclipse/cargotracker/interfaces/tracking/rest/CargoStatusHttpIT.java`. Używa rzeczywistego HTTP i JSON, nie importuje ani nie wywołuje CargoStatusResource ani CargoStatusDto. Korzysta z JUnit 5, klienta HTTP z JDK 17 i parsera JSON potwierdzonego w zależnościach. Jeśli parsera brakuje, uzgodnij zależność i zapisz POM we wspólnej bazie przed podziałem pracy. Nie twórz fikcyjnych odpowiedzi ani mocków HTTP.
+
+Nazwa `*IT` oddziela test wymagający zewnętrznej Payary od domyślnego zestawu Surefire `*Test`. Ten test uruchamiasz **jawnie** po starcie serwera, także przy końcowej weryfikacji; sam `clean package` go nie wykonuje. Bazowy URL pobieraj z właściwości `cargo.status.baseUrl`, a brak serwera traktuj jako błąd środowiska, bez skipów i automatycznego przejścia do Green.
+
+Najpierw skompiluj test bez implementacji endpointu:
+
+```powershell
+.\mvnw.cmd -B test-compile
 ```
 
-Sprawdź znaczenie statusów w `Delivery`; nie utożsamiaj `transportStatus` z tekstem wyświetlanym przez Faces. Oczekiwany wynik: dokumenty oraz czerwone testy z powodu brakującego zasobu, nie z powodu braku internetu czy zależności.
+Na uruchomionej wersji bazowej (8080 lub odpowiednio 18080) wykonaj:
 
-## 3. Równoległe agenty i worktrees, 60 minut
+```powershell
+.\mvnw.cmd -B '-Dtest=CargoStatusHttpIT' '-Dcargo.status.baseUrl=http://localhost:8080/cargo-tracker' test
+```
 
-Cel: trzy rozłączne zakresy przy wspólnym kontrakcie. Najpierw zapisz zatwierdzone dokumenty i czerwone testy w jednym commicie, jawnie wskazując pliki. Worktrees tworzysz świadomie na potrzeby tego ćwiczenia. Każdy ma inną gałąź; agenci nie wykonują Git push ani commitów.
+Oczekiwany Red: przypadek znanego ładunku ABC123 oczekuje 200/JSON, a stara aplikacja zwraca 404. Najpierw potwierdź 200 na istniejącym track.xhtml, żeby nie pomylić braku trasy z brakiem wdrożenia. Zapisz dokumenty, zależności i kompilujący się czerwony test w bazowym commicie.
+
+## 3. Równoległe agenty, worktrees i integracja, 130 minut
+
+Cel: trzy rozłączne zakresy przy wspólnym kontrakcie. Najpierw zapisz zatwierdzone dokumenty i kompilujący się czerwony CargoStatusHttpIT w jednym commicie, jawnie wskazując pliki. Wspólna baza nie zawiera DTO ani zasobu statusu. Testy nie zależą od ich klas; każdy worktree ma samodzielnie przejść test-compile. W application/util/RestConfiguration.java klasa @ApplicationPath("rest") rozszerza Application i nadpisuje wyłącznie getProperties, bez getClasses/getSingletons. Nowy publiczny zasób z @Path w interfaces/tracking/rest jest wykrywany w WAR bez dopisywania rejestracji. Zastosuj zakres CDI według istniejących zasobów; rzeczywisty routing i serializację potwierdź testem HTTP po wdrożeniu, a nie samą kompilacją. Worktrees tworzysz świadomie na potrzeby tego ćwiczenia. Każdy ma inną gałąź; agenci nie wykonują Git push ani commitów.
 
 ```powershell
 git worktree add ../cargo-tracker.worktrees/backend -b task/status-backend
@@ -190,10 +210,10 @@ git worktree add ../cargo-tracker.worktrees/tests -b task/status-tests
 git worktree add ../cargo-tracker.worktrees/ui -b task/status-ui
 ```
 
-Otwórz osobne terminale z Codexem dla tych katalogów. Backend i testy uruchamiaj kolejno przy testach integracyjnych, żeby nie walczyły o 9090. Prompt dla sesji koordynującej:
+Powyższe git worktree add wykonuje uczestnik w PowerShell, poza sesją agenta. Otwórz osobne terminale z Codexem uruchomionym w każdym docelowym katalogu; sandbox głównego klonu nie daje automatycznie prawa zapisu do katalogów obok. Nie proś jednej sesji o zapis we wszystkich worktree. Backend i testy uruchamiaj kolejno przy testach integracyjnych, żeby nie walczyły o 9090. Prompt dla sesji koordynującej:
 
 ```text
-Podziel realizację zaakceptowanego PRD na trzy równoległe sesje w przygotowanych worktrees. Napisz dla każdej kompletny brief z kontraktem, ścieżkami i kryteriami końca. Backend może zmieniać wyłącznie nowe CargoStatusResource.java i CargoStatusDto.java w interfaces/tracking/rest. Testy mogą zmieniać tylko CargoStatusResourceTest.java oraz CargoStatusDtoTest.java w odpowiadającym src/test/java; testy piszą przeciw zaakceptowanemu kontraktowi, nie odgadują implementacji. UI może zmienić wyłącznie nowy src/main/webapp/public/status-help.xhtml: krótka angielska instrukcja, link do istniejącej strony track.xhtml, bez nowych beanów i bez zależności od REST. Każdy agent czyta PRD i zwraca diff, wynik sprawdzenia oraz niewykonane kontrole. Nie zmieniaj POM równolegle, nie formatuj cudzych plików, nie wykonuj commitów. Zaczekaj na wszystkich. Przy konflikcie kontraktu wróć do PRD zamiast poprawiać go po cichu.
+Podziel realizację zaakceptowanego PRD na trzy równoległe sesje w przygotowanych worktrees. Napisz dla każdej kompletny brief z kontraktem, ścieżkami i kryteriami końca. Backend może zmieniać wyłącznie nowe CargoStatusResource.java i CargoStatusDto.java w interfaces/tracking/rest. Testy mogą zmieniać tylko CargoStatusHttpIT.java w odpowiadającym src/test/java; wysyłają rzeczywiste HTTP i sprawdzają statusy oraz JSON z PRD. Nie importują żadnej klasy przyszłego backendu ani DTO i nie tworzą CargoStatusDtoTest. Najpierw potwierdzają samodzielne test-compile. Pełny zestaw HTTP stanie się zielony dopiero po integracji i wdrożeniu nowego WAR. UI może zmienić wyłącznie nowy src/main/webapp/public/status-help.xhtml: krótka angielska instrukcja, link do istniejącej strony track.xhtml, bez nowych beanów i bez zależności od REST. Każdy agent czyta PRD i zwraca diff, wynik sprawdzenia oraz niewykonane kontrole. Nie zmieniaj POM równolegle, nie formatuj cudzych plików, nie wykonuj commitów. Zaczekaj na wszystkich. Przy konflikcie kontraktu wróć do PRD zamiast poprawiać go po cichu.
 ```
 
 Dla każdego worktree skopiuj jego brief do odpowiedniej sesji. Po odebraniu zmian uczestnik przegląda diff i wykonuje jawny commit każdego zakresu. Na gałęzi `feature/cargo-status` scal kolejno `task/status-tests`, `task/status-backend`, `task/status-ui`, używając merge lub cherry-pick wybranych commitów. Nie wykonuj buildów trzech kopii jednocześnie na VM 8 GB.
@@ -201,14 +221,14 @@ Dla każdego worktree skopiuj jego brief do odpowiedniej sesji. Po odebraniu zmi
 Prompt po scaleniu:
 
 ```text
-Sprawdź scalony wynik względem PRD. Uruchom testy zasobu i DTO, potem pełne .\mvnw.cmd -B clean package. Doprowadź testy do zielonego bez osłabiania asercji i bez pomijania testów. Pokaż, gdzie testy odróżniają 400 od 404, jak potwierdzają brak zapisu i jak uruchamiany jest test HTTP: samo wywołanie metody Java nie sprawdza routingu ani serializacji. Otwórz w przeglądarce public/status-help.xhtml i istniejące public/track.xhtml, sprawdź link i ładunek ABC123. Zgłoś każdą niewykonaną kontrolę.
+Sprawdź scalony wynik względem PRD. Zatrzymaj starą Payarę. Uruchom pełne .\mvnw.cmd -B clean package, potem ponownie uruchom aplikację z nowego WAR. Dopiero na nowym wdrożeniu jawnie wykonaj CargoStatusHttpIT z właściwym cargo.status.baseUrl. Sam clean package nie uruchamia tego testu *IT. Doprowadź testy do zielonego bez osłabiania asercji i bez pomijania testów. Pokaż, gdzie testy odróżniają 400 od 404, jak przegląd wywołań i obserwacja danych potwierdzają brak zapisu i jak uruchamiany jest test HTTP: samo wywołanie metody Java nie sprawdza routingu ani serializacji. Otwórz w przeglądarce public/status-help.xhtml i istniejące public/track.xhtml, sprawdź link i ładunek ABC123. Zgłoś każdą niewykonaną kontrolę.
 ```
 
-Sprawdź 200/400/404 i zgodność JSON z PRD. Wynik: zielone testy, działający nowy widok Faces i śledzenie ABC123. Usuń trzy worktrees dopiero po zachowaniu ich commitów; wykonaj `git worktree remove` dla każdego katalogu, potem `git worktree prune`. Nie używaj `--force`.
+Sprawdź 200/400/404 i zgodność JSON z PRD. Wynik: zielone testy, działający nowy widok Faces i śledzenie ABC123. Zamknij sesje Codex, terminale i okna IDE otwarte w worktree, zatrzymaj Payarę oraz procesy Javy. Wyjdź do głównego klonu. Otwarte uchwyty Windows mogą blokować usuwanie katalogów. Usuń trzy worktrees dopiero po zachowaniu ich commitów; wykonaj `git worktree remove` dla każdego katalogu, potem `git worktree prune`. Nie używaj `--force`.
 
-## 4. Review z nowej sesji, 20 minut
+## 4. Review z nowej sesji, 30 minut
 
-Cel: niezależne spojrzenie bez historii autora. Uruchom osobną sesję tylko do odczytu.
+Cel: niezależne spojrzenie bez historii autora. [P08: review drugiego agenta](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/prompty.html#P08-testy-przeglad-zmian) jest pełnym promptem; poniższa lista wyznacza sprawdzany zakres Cargo. Uruchom osobną sesję tylko do odczytu.
 
 ```powershell
 codex -s read-only
@@ -236,11 +256,11 @@ Przygotuj docs/mr-description.md: problem, kontrakt endpointu, przykład odpowie
 glab mr create --repo "gitlab.com/${env:GITLAB_LOGIN}/cargo-tracker-codex" --source-branch feature/cargo-status --target-branch master --title 'Dodaj odczyt statusu ładunku' --description-file docs/mr-description.md --draft --yes
 ```
 
-Sprawdź URL i diff MR, gałąź docelową `master` oraz własny projekt. Wynik: draft MR, bez automatycznego merge. Brak pipeline w nowym projekcie jest możliwy; lokalne wyniki testów nadal muszą być opisane uczciwie.
+Sprawdź URL i diff MR, gałąź docelową `master` oraz własny projekt. Wynik: draft MR, bez automatycznego merge. Upstream Cargo Tracker nie ma .gitlab-ci.yml, więc samo utworzenie MR nie uruchomi naszych testów w GitLab CI. Minimalny pipeline przygotujesz i sprawdzisz przez glab ci lint w [P32](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/prompty.html#P32-gitlab-mr) przy własnym zadaniu. Lint sprawdza konfigurację, a nie wynik testów. GitLab.com może wymagać weryfikacji konta przed udostępnieniem shared runners. Lokalny wynik i stan CI raportuj osobno, bez obietnicy zielonego pipeline.
 
 ## 6. Migracja wydzielonego zakresu javax do jakarta, 60-90 minut
 
-Cel: mała migracja z testami i porównaniem. `jakartaee8` używa nazw pakietów `javax`, choć zależność nazywa się `jakarta.jakartaee-api:8.0.0`. Ta gałąź nie ma Maven Wrappera. Przygotuj czyste drzewo, przejdź na jej nową gałąź i zachowaj wrapper z `master`:
+Cel: mała migracja z testami i porównaniem. Główna ścieżka dnia 3 to wspólny pokaz z wykonaniem zakresu przez 60 minut, po Fineract; samodzielny pełny przebieg może wymagać 60-90 minut. Zachowaj dowody i dokończ rozszerzenie po kursie, jeśli nie zmieści się w bloku. `jakartaee8` używa nazw pakietów `javax`, choć zależność nazywa się `jakarta.jakartaee-api:8.0.0`. Ta gałąź nie ma Maven Wrappera. Przygotuj czyste drzewo, przejdź na jej nową gałąź i zachowaj wrapper z `master`:
 
 ```powershell
 git switch -c exercise/migrate-location jakartaee8
@@ -273,3 +293,5 @@ Sprawdź zachowane reguły domeny, importy oraz brak przypadkowych zmian w WAR. 
 Na VM 8 GB zaplanuj jeden Maven/Payara naraz; IntelliJ i przeglądarka też zużywają RAM. Rezerwuj 10-15 minut na pierwsze pobieranie, 2-5 minut na kolejne pełne testy. Sama Payara Micro ma około 102 MB, dystrybucja serwera około 173 MB; cache i rozpakowany serwer zajmują więcej. Potrzebne są GitHub, Maven Central, GitLab.com i dostęp Codexa. Zajęte 8080/9090/4848 albo brak JDK to problemy środowiska, nie czerwony test TDD.
 
 Źródła składni: [tworzenie projektu](https://docs.gitlab.com/cli/repo/create/), [logowanie](https://docs.gitlab.com/cli/auth/login/), [merge request](https://docs.gitlab.com/cli/mr/create/).
+
+Odkrywanie zasobów: [Jakarta REST 3.1, konfiguracja aplikacji Servlet](https://jakarta.ee/specifications/restful-ws/3.1/jakarta-restful-ws-spec-3.1.html#servlet). Wniosek opiera się na źródle RestConfiguration w sprawdzonej rewizji; nowy endpoint nadal wymaga testu HTTP podczas ćwiczenia.

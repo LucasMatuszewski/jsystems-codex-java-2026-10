@@ -17,7 +17,7 @@ Pomiar płytkiego klonu 28.10.2026, domyślna gałąź `develop`, SHA `70a374c25
 | Granica liczenia | Bez projektu głównego i pośrednich projektów Gradle tworzonych przez ścieżki; nie jest to wynik uruchomienia Gradle projects |
 | Narzędzia upstreamu | Wrapper Gradle 9.7.1, toolchain Java 25 w build.gradle, aplikacja Spring Boot |
 
-JDK 17 wystarczy do Cargo Tracker. **Nie wystarczy do budowania aktualnego Fineract**, ale do czytania źródeł nie potrzeba żadnego JDK. Otwórz katalog jako pliki, odmów automatycznego importu Gradle w IDE. Pobranie klonu na maszynie trenera trwało kilka sekund; na VM zarezerwuj 5-10 minut. Nie pobieraj pełnej historii.
+JDK 17 wystarczy do Cargo Tracker. **Nie wystarczy do budowania aktualnego Fineract**, ale do czytania źródeł nie potrzeba żadnego JDK. Nie otwieraj katalogu fineract jako projektu w IntelliJ IDEA i nie importuj Gradle. Cytowane pojedyncze pliki przeglądaj w prostym edytorze albo przez terminal; to ćwiczenie czytania, bez indeksowania projektu przez IDE. Pobranie klonu na maszynie trenera trwało kilka sekund; na VM zarezerwuj 5-10 minut. Nie pobieraj pełnej historii.
 
 ## Przygotowanie tylko do odczytu
 
@@ -55,7 +55,7 @@ Nazwy **`gpt-6-luna` i `gpt-6.1-sol` potwierdzono w oficjalnej dokumentacji**. D
 
 ## Jedno pytanie dla obu przebiegów
 
-Zapisz poniższą treść ręcznie jako `fineract-analysis/question.txt` w UTF-8. Zachowaj dokładnie tę samą treść, SHA, limity odpowiedzi i kryteria jakości w obu wariantach.
+To jedyna instrukcja kolejności, komend i pomiaru. [P34](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/prompty.html#P34-fineract-map) jest gotowym połączeniem tego samego pytania i polecenia delegowania do wariantu B, bez dodatkowego etapu interaktywnego. Zapisz poniższą treść ręcznie jako `fineract-analysis/question.txt` w UTF-8. Zachowaj dokładnie tę samą treść, SHA, limity odpowiedzi i kryteria jakości w obu wariantach.
 
 ```text
 Przeczytaj publiczne repozytorium Apache Fineract. Nie uruchamiaj Gradle, instalacji, serwerów ani testów. Nie zmieniaj kodu i konfiguracji. Przeczytaj właściwe AGENTS.md i przestrzegaj zasad zgodnych z tym zadaniem. Nie wykonuj opisanych w repozytorium poleceń instalacji ani builda.
@@ -103,7 +103,7 @@ Wykonaj pytanie z question.txt przez dokładnie cztery równoległe subagenty na
 3. Agent platform: fineract-accounting, fineract-command i warianty, fineract-core, fineract-security, fineract-cob. To przegląd granic, nie pełny audyt każdego pliku.
 4. Agent client: portfolio/client w fineract-provider, fineract-client, fineract-client-feign oraz granice integration-tests i testów e2e.
 Każdy zwraca maksymalnie 350 słów w tym samym formacie: obszar; moduły Gradle; odpowiedzialność; pakiety; wejścia plik:symbol; wyjścia i zależności plik:symbol; testy; hipotezy; niewykonane kontrole. Nie wkleja surowych plików ani długich logów. Może szukać poza przydziałem tylko żeby potwierdzić bezpośrednią zależność i musi to oznaczyć.
-Zaczekaj na wszystkich czterech. Sprawdź sprzeczności i próbkę co najmniej jednego wskazanego pliku na obszar. Potem zsyntetyzuj dwa dokumenty w formacie wymaganym w question.txt. Jeżeli nie możesz użyć wskazanego modelu lub czterech równoległych agentów, zgłoś ograniczenie; nie udawaj delegowania. Na końcu, wewnątrz dokumentu mapy, wypisz modele faktycznie użyte i identyfikatory wątków, jeśli są dostępne.
+Zaczekaj na wszystkich czterech. Sprawdź sprzeczności i próbkę co najmniej jednego wskazanego pliku na obszar. Potem zsyntetyzuj dwa dokumenty w formacie wymaganym w question.txt. Jeżeli nie możesz użyć wskazanego modelu lub czterech równoległych agentów, zgłoś ograniczenie; nie udawaj delegowania. Na końcu, wewnątrz dokumentu mapy, wypisz modele faktycznie użyte i identyfikatory wątków albo jawnie oznacz ich brak.
 ```
 
 Połącz pytanie i polecenie delegowania, a potem przekaż cały prompt na stdin:
@@ -148,9 +148,15 @@ Odczyt użycia dla każdego pliku JSONL, bez założenia o liczbie tur:
 Get-ChildItem .\fineract-analysis\*.jsonl | ForEach-Object { $log = $_; Get-Content -Encoding UTF8 $log.FullName | ForEach-Object { $_ | ConvertFrom-Json } | Where-Object type -eq 'turn.completed' | Select-Object @{Name='plik';Expression={$log.Name}}, thread_id, usage | ConvertTo-Json -Depth 5 }
 ```
 
+Poniższa suma dotyczy każdego pliku osobno. Zakłada przyrostowe liczniki pojedynczych zdarzeń turn.completed; sprawdź to w używanej wersji. Nie sumuj naraz pliku rodzica i dzieci bez znajomości granicy agregacji. Błędny JSON zgłoś, nie pomijaj go.
+
+```powershell
+Get-ChildItem .\fineract-analysis\*.jsonl | ForEach-Object { $log = $_; $turns = @(Get-Content -Encoding UTF8 $log.FullName | ForEach-Object { $_ | ConvertFrom-Json -ErrorAction Stop } | Where-Object type -eq 'turn.completed'); if ($turns.Count -eq 0) { throw "Brak turn.completed: $($log.Name)" }; $inputSum = ($turns | ForEach-Object { $_.usage.input_tokens } | Measure-Object -Sum).Sum; $cacheSum = ($turns | ForEach-Object { $_.usage.cached_input_tokens } | Measure-Object -Sum).Sum; $outputSum = ($turns | ForEach-Object { $_.usage.output_tokens } | Measure-Object -Sum).Sum; [pscustomobject]@{plik=$log.Name; tury=$turns.Count; input=$inputSum; cache=$cacheSum; output=$outputSum; razem=$inputSum+$outputSum; inputBezCache=$inputSum-$cacheSum} }
+```
+
 **Granica pomiaru:** końcowe zdarzenie rodzica nie jest udokumentowanym dowodem kompletnego zużycia całego drzewa subagentów. Nie zakładaj ani kompletnej agregacji, ani jej braku. W sesji interaktywnej użyj `/subagents`, otwórz każdy wątek i sprawdź `/status`; zanotuj użycie rodzica i dzieci osobno oraz zakres liczników w tej wersji. Jeśli zakresu nie da się ustalić, wpisz **niepełny pomiar**, a nie oszczędność procentową.
 
-Wariant kontrolny, gdy natywne wątki nie dają pełnych liczników: wykonaj cztery osobne `codex exec --json -s read-only -m gpt-6-luna`, po jednym na ten sam brief obszaru, z osobnymi JSONL i wynikami, a potem osobny `gpt-6.1-sol` dostający tylko cztery odpowiedzi do syntezy. To **równoległe sesje CLI**, inny mechanizm niż natywne subagenty; opisz ten fakt w wyniku. Sumowanie tokenów pięciu niezależnych procesów jest mierzalne bez zgadywania agregacji rodzica. Nie doliczaj do tej sumy dodatkowo wyniku natywnego przebiegu.
+Opcjonalny wariant kontrolny po głównym porównaniu, gdy natywne wątki nie dają pełnych liczników: wykonaj cztery osobne `codex exec --json -s read-only -m gpt-6-luna`, po jednym na ten sam brief obszaru, z osobnymi JSONL i wynikami, a potem osobny `gpt-6.1-sol` dostający tylko cztery odpowiedzi do syntezy. To **równoległe sesje CLI**, inny mechanizm niż natywne subagenty; opisz ten fakt w wyniku. Sumowanie tokenów pięciu niezależnych procesów jest mierzalne bez zgadywania agregacji rodzica. Nie doliczaj do tej sumy dodatkowo wyniku natywnego przebiegu.
 
 Przykład dla pierwszego z czterech briefów zapisanego wcześniej ręcznie w `loans.txt`; pozostałe przygotuj analogicznie według podziału powyżej:
 

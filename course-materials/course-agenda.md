@@ -143,9 +143,9 @@ Cel dnia: funkcjonalność przechodzi pętle jakości, każdy uczestnik naprawia
 
 1. **Dzień 1, jFTP:** narzędzia Codex, bezpieczne uprawnienia, CODEX_HOME, analiza legacy, AGENTS.md, kontekst, skills i pomiar A/B.
 2. **Dzień 2, Eclipse Cargo Tracker:** analiza aplikacji Jakarta EE, PRD funkcji odczytu statusu ładunku, ADR, plan, TDD, sprawdzenie UI przez Playwright CLI oraz praca w oddzielnych worktree i scalanie. [Ćwiczenie](exercises/cargo-tracker.md).
-3. **Dzień 3:** niezależny review, [zgłoszenia i merge requesty GitLab](exercises/cargo-tracker-tickets.md), migracja javax na jakarta na gałęzi jakartaee8, [analiza Apache Fineract](exercises/fineract-multi-agent.md) przez wykonawców Luna i orkiestratora Sol, hooki, standard zespołu i retrospektywa.
+3. **Dzień 3:** [analiza Apache Fineract](exercises/fineract-multi-agent.md) przez wykonawców Luna i orkiestratora Sol oraz porównanie tokenów przed migracją. Następnie pierwszy MR funkcji Cargo, [utworzenie zgłoszeń i merge request GitLab](exercises/cargo-tracker-tickets.md), migracja javax na jakarta na gałęzi jakartaee8, pokaz hooków, standard zespołu i retrospektywa. Niezależny review funkcji Cargo (krok 4, P08) zamyka dzień 2; publikacja MR to krok 5 dnia 3.
 
-Po uzgodnieniu z klientem ćwiczenie czatu i osobnej usługi Spring AI zastępuje funkcja odczytu w istniejącej aplikacji. Spring Boot pozostaje kontekstem analizy Fineract. Design system Cargo Tracker i Playwright przechodzą do dnia 2. jFTP poprzedza większą aplikację webową. Nie pracujemy na kodzie firmowym.
+Po uzgodnieniu z klientem ćwiczenie czatu i osobnej usługi Spring AI zastępuje funkcja odczytu w istniejącej aplikacji. Spring Boot pozostaje kontekstem analizy Fineract. Playwright sprawdza rzeczywisty przepływ w dniu 2; wyciąganie design systemu (P05) pozostaje opcjonalne. jFTP poprzedza większą aplikację webową. Nie pracujemy na kodzie firmowym.
 
 ## Rejestr zmian
 
@@ -154,3 +154,4 @@ Po uzgodnieniu z klientem ćwiczenie czatu i osobnej usługi Spring AI zastępuj
 | 2026-10-28 | JAVA-01 | jFTP, Cargo Tracker i Fineract w tej kolejności; analiza, skills A/B i mniejsze modele | Cargo Tracker od startu i nowa usługa czatu Spring AI | Uzgodniony nacisk na istniejący kod, zarządzanie agentami i pomiar tokenów |
 | 2026-10-28 | JAVA-02 | Przygotowane VM Linux, szkoleniowy Business i indywidualny GitLab.com | Przygotowanie lokalne i repozytorium grupowe z oferty | Aktualne ustalenia organizacyjne |
 | 2026-10-28 | JAVA-03 | VM z Windows 11, PowerShell i natywny sandbox Codex; dostęp RDP z adresem host:port, awaryjnie pulpit w przeglądarce | Zakładane VM Linux | Potwierdzone środowisko JSystems; nie zakładamy WSL ani gotowej listy zainstalowanych narzędzi |
+| 2026-10-28 | JAVA-04 | Górne listy dni wyznaczają chronologię, po 360 minut netto i trzy przerwy. jFTP: P18, P20/P21, zapis AGENTS.md i sprawdzian świeżej sesji z P24; IntelliJ/CLI na tym samym pytaniu; jeden pilotaż A/B P28. Review Cargo kończy dzień 2; Fineract i pomiar tokenów poprzedzają GitLab i migrację w dniu 3. Testy P31 sprawdzają HTTP/JSON bez importu DTO; minimalne CI podlega lintowaniu, dostęp runnera wymaga osobnej kontroli. | Przeładowane listy, powielone ćwiczenia, trzy pary A/B, Fineract po migracji, testy zależne od nieistniejącego DTO | Brief E i zweryfikowane ustalenia dwóch recenzji; realny czas dla dziewięciu VM |
