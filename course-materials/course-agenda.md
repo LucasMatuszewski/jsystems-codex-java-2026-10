@@ -139,7 +139,7 @@ Cel dnia: funkcjonalność przechodzi pętle jakości, każdy uczestnik naprawia
 
 ## Trasa warsztatowa uzgodniona po spotkaniu
 
-28-30.10.2026, 09:00-16:00 Europe/Warsaw. Przerwy: 11:00-11:15, 13:00-13:30 i 14:30-14:45. Pracujemy na przygotowanych maszynach Linux, z kontami ChatGPT Business zapewnionymi przez trenera i własnymi projektami GitLab.com.
+28-30.10.2026, 09:00-16:00 Europe/Warsaw. Przerwy: 11:00-11:15, 13:00-13:30 i 14:30-14:45. Pracujemy na przygotowanych maszynach z Windows 11, w PowerShell, z kontami ChatGPT Business zapewnionymi przez trenera i własnymi projektami GitLab.com.
 
 1. **Dzień 1, jFTP:** narzędzia Codex, bezpieczne uprawnienia, CODEX_HOME, analiza legacy, AGENTS.md, kontekst, skills i pomiar A/B.
 2. **Dzień 2, Eclipse Cargo Tracker:** analiza aplikacji Jakarta EE, PRD funkcji odczytu statusu ładunku, ADR, plan, TDD, sprawdzenie UI przez Playwright CLI oraz praca w oddzielnych worktree i scalanie. [Ćwiczenie](exercises/cargo-tracker.md).
@@ -153,3 +153,4 @@ Po uzgodnieniu z klientem ćwiczenie czatu i osobnej usługi Spring AI zastępuj
 |---|---|---|---|---|
 | 2026-10-28 | JAVA-01 | jFTP, Cargo Tracker i Fineract w tej kolejności; analiza, skills A/B i mniejsze modele | Cargo Tracker od startu i nowa usługa czatu Spring AI | Uzgodniony nacisk na istniejący kod, zarządzanie agentami i pomiar tokenów |
 | 2026-10-28 | JAVA-02 | Przygotowane VM Linux, szkoleniowy Business i indywidualny GitLab.com | Przygotowanie lokalne i repozytorium grupowe z oferty | Aktualne ustalenia organizacyjne |
+| 2026-10-28 | JAVA-03 | VM z Windows 11, PowerShell i natywny sandbox Codex; dostęp RDP z adresem host:port, awaryjnie pulpit w przeglądarce | Zakładane VM Linux | Potwierdzone środowisko JSystems; nie zakładamy WSL ani gotowej listy zainstalowanych narzędzi |

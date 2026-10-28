@@ -2,85 +2,87 @@
 
 Pracujemy na aplikacji Jakarta EE, ale ćwiczymy prowadzenie agenta: zakres, dowody, testy, podział pracy i review. Każdy pracuje na własnej VM i we własnym projekcie GitLab.com. Dzień 2: kroki 1-5. Dzień 3: krok 6.
 
-**Status poleceń:** N = nie uruchomiono w przygotowaniu, polecenie do wykonania na VM uczestnika. Wszystkie poniższe bloki bash mają status N, poza blokami wyraźnie oznaczonymi R. Prompty są zadaniami dla uczestnika, nie raportem wykonanej implementacji. Składnię `glab` sprawdzono w oficjalnej dokumentacji 28.10.2026, bez logowania do GitLaba.
-
 ## Przygotowanie VM i własnego projektu, 15-25 minut
 
-Uruchom osobno kontrole. Potrzebujesz JDK 17 z `javac`, Git, Node.js, Codex CLI, `glab`, curl oraz IntelliJ IDEA dostępnego z pulpitu. Zatrzymaj się przy brakującym narzędziu i zgłoś trenerowi.
+Na VM z Windows 11 otwórz PowerShell i uruchom osobno kontrole. Korzystamy z natywnego Codex i sandboxu Windows; nie zakładamy WSL. Potrzebujesz JDK 17 z `javac`, Git, Node.js, Codex CLI, `glab`, curl.exe oraz IntelliJ IDEA dostępnego z pulpitu. Zatrzymaj się przy brakującym narzędziu i zgłoś trenerowi.
 
-```bash
+```powershell
 java -version
 ```
 
-```bash
+```powershell
+where.exe java
+```
+
+```powershell
 javac -version
 ```
 
-```bash
+```powershell
 git --version
 ```
 
-```bash
+```powershell
 node --version
 ```
 
-```bash
+```powershell
 codex --version
 ```
 
-```bash
+```powershell
 glab version
 ```
 
-```bash
-curl --version
+```powershell
+curl.exe --version
 ```
 
-```bash
-command -v idea
+```powershell
+Get-Command idea
 ```
 
 Brak `idea` w PATH nie wyklucza instalacji graficznej. Otwórz IntelliJ z pulpitu i sprawdź SDK projektu. W terminalu Codex sprawdź logowanie; nie wklejaj tokenów do rozmowy.
 
-```bash
+```powershell
 codex login status
 ```
 
-```bash
+```powershell
 glab auth login --hostname gitlab.com --web --git-protocol https
 ```
 
 Ustaw własny login. Projekt ma powstać w przestrzeni osobistej, bez grupy. Dla Cargo używamy zwykłego klonu: wysyłanie płytkiego klonu do nowego serwera może zostać odrzucone. Zachowujemy licencję i historię upstreamu.
 
-```bash
-export GITLAB_LOGIN='WPISZ_SWÓJ_LOGIN'
+```powershell
+$env:GITLAB_LOGIN = 'WPISZ_SWÓJ_LOGIN'
 ```
 
-```bash
+```powershell
 git clone --branch master https://github.com/eclipse-ee4j/cargotracker.git cargo-tracker
 ```
 
-```bash
+```powershell
 cd cargo-tracker
 ```
 
-```bash
+```powershell
 git remote rename origin upstream
 ```
 
-```bash
+```powershell
 git fetch upstream jakartaee8:jakartaee8
 ```
 
-```bash
-glab repo create "gitlab.com/${GITLAB_LOGIN}/cargo-tracker-codex" --private --defaultBranch master --skipGitInit
+```powershell
+glab repo create "gitlab.com/${env:GITLAB_LOGIN}/cargo-tracker-codex" --private --defaultBranch master --skipGitInit
 ```
 
-```bash
-git remote add origin "https://gitlab.com/${GITLAB_LOGIN}/cargo-tracker-codex.git"
+```powershell
+git remote add origin "https://gitlab.com/${env:GITLAB_LOGIN}/cargo-tracker-codex.git"
 ```
 
-```bash
+```powershell
 git push -u origin master jakartaee8
 ```
 
@@ -88,48 +90,48 @@ Sprawdź w GitLabie dwie gałęzie, własną przestrzeń oraz widoczność prywa
 
 ## Punkt odniesienia i uruchomienie
 
-Sprawdzono 28.10.2026: `master` = `4d26b8fd59a7f0bac6e42d5d19a8cd1b379353b5`, Temurin 17.0.21+9, Maven Wrapper 3.9.16, Jakarta EE 10, Payara 6.2025.5. Pełny build: **35 testów, 0 błędów, 0 pominięć, 80 s** z zimnym cache. Wersja `jakartaee8` = `e6b8648cda2754aee39cb536c807b051cab74b61`: **29 testów, 0 błędów, 58 s**, także JDK 17. Nowszy upstream może zmienić wyniki; przed ćwiczeniem zanotuj SHA.
+Wyniki referencyjne na maszynie trenera, 28.10.2026 (nie pomiar VM Windows): `master` = `4d26b8fd59a7f0bac6e42d5d19a8cd1b379353b5`, Temurin 17.0.21+9, Maven Wrapper 3.9.16, Jakarta EE 10, Payara 6.2025.5. Pełny build: **35 testów, 0 błędów, 0 pominięć, 80 s** z zimnym cache. Wersja `jakartaee8` = `e6b8648cda2754aee39cb536c807b051cab74b61`: **29 testów, 0 błędów, 58 s**, także JDK 17. Nowszy upstream może zmienić wyniki; przed ćwiczeniem zanotuj SHA.
 
-```bash
+```powershell
 git rev-parse HEAD
 ```
 
-```bash
-./mvnw -B clean package
+```powershell
+.\mvnw.cmd -B clean package
 ```
 
 Oczekuj WAR `target/cargo-tracker.war` i raportów `target/surefire-reports`. Domyślny build obejmuje test integracyjny uruchamiający Payara Micro na **9090**. Spotless w fazie `process-sources` może sformatować kod; sprawdź diff przed commitem.
 
-```bash
-./mvnw cargo:run
+```powershell
+.\mvnw.cmd cargo:run
 ```
 
-Domyślna strona: `http://localhost:8080/cargo-tracker/`, śledzenie: `http://localhost:8080/cargo-tracker/public/track.xhtml`. Zatrzymuj serwer Ctrl+C w jego terminalu. Nie uruchamiaj kilku serwerów naraz. Sam napis `BUILD SUCCESS` nie potwierdza wdrożenia: Cargo potrafi wypisać go po błędzie startu. Potwierdź odpowiedź HTTP i treść strony. Na maszynie trenera 8080 był zajęty: start kończył się CLI130 przy create-domain. Sprawdzony wariant N dla VM uczestnika, oparty na rzeczywiście wykonanej próbie na 18080:
+Domyślna strona: `http://localhost:8080/cargo-tracker/`, śledzenie: `http://localhost:8080/cargo-tracker/public/track.xhtml`. Zatrzymuj serwer Ctrl+C w jego terminalu. Nie uruchamiaj kilku serwerów naraz. Sam napis `BUILD SUCCESS` nie potwierdza wdrożenia: Cargo potrafi wypisać go po błędzie startu. Potwierdź odpowiedź HTTP i treść strony. Jeśli 8080 jest zajęty, start może zakończyć się CLI130 przy create-domain. Użyj wtedy portu 18080:
 
-```bash
-./mvnw -B -Dcargo.servlet.port=18080 cargo:run
+```powershell
+.\mvnw.cmd -B '-Dcargo.servlet.port=18080' cargo:run
 ```
 
-Na 18080 potwierdzono stronę startową i public/track.xhtml (200), wyznaczanie tras (200), walidację parametrów i pustego raportu (400), SSE (200 z danymi) oraz brak endpointu statusu (404). Dla tego wariantu używaj w URL portu 18080. Przed ćwiczeniami rezerwacji przebuduj WAR z właściwym adresem wewnętrznego routingu, ponieważ jest filtrowany przy pakowaniu. Polecenie N, nie wykonano tego wariantu przebudowy:
+Na 18080 potwierdzono stronę startową i public/track.xhtml (200), wyznaczanie tras (200), walidację parametrów i pustego raportu (400), SSE (200 z danymi) oraz brak endpointu statusu (404). Dla tego wariantu używaj w URL portu 18080. Przed ćwiczeniami rezerwacji przebuduj WAR z właściwym adresem wewnętrznego routingu, ponieważ jest filtrowany przy pakowaniu. Przebuduj przed kolejnym uruchomieniem:
 
-```bash
-./mvnw -B -Dwebapp.graphTraversalUrl=http://localhost:18080/cargo-tracker/rest/graph-traversal/shortest-path package
+```powershell
+.\mvnw.cmd -B '-Dwebapp.graphTraversalUrl=http://localhost:18080/cargo-tracker/rest/graph-traversal/shortest-path' package
 ```
 
-Po zakończeniu wariantu 18080 możesz użyć w drugim terminalu sprawdzonej procedury zatrzymania (N dla tej wersji polecenia):
+Po zakończeniu wariantu 18080 możesz użyć w drugim terminalu polecenia zatrzymania:
 
-```bash
-./mvnw -B -Dcargo.servlet.port=18080 cargo:stop
+```powershell
+.\mvnw.cmd -B '-Dcargo.servlet.port=18080' cargo:stop
 ```
 
 Następnie zamknij oczekujący proces cargo:run przez Ctrl+C. Przekroczenie limitu czasu curl dla SSE jest spodziewane, jeśli strumień nadal pozostaje otwarty.
 
-```bash
-curl -i --max-time 10 http://localhost:8080/cargo-tracker/public/track.xhtml
+```powershell
+curl.exe -i --max-time 10 http://localhost:8080/cargo-tracker/public/track.xhtml
 ```
 
-```bash
-curl -i --max-time 10 'http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path?origin=SESTO&destination=AUMEL'
+```powershell
+curl.exe -i --max-time 10 'http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path?origin=SESTO&destination=AUMEL'
 ```
 
 Mapa do pierwszego przeglądu: `src/main/java/org/eclipse/cargotracker/domain/model` to domena, `application/internal` to przypadki użycia, `infrastructure/persistence/jpa` to repozytoria, `interfaces` to adaptery REST/Faces/SSE. `org/eclipse/pathfinder` symuluje zewnętrzne wyznaczanie tras. `src/main/webapp/public/track.xhtml` korzysta z `interfaces/tracking/web/Track.java`. To pojedynczy moduł Maven WAR, z wieloma pakietami logicznymi.
@@ -140,7 +142,7 @@ Istnieją: GET `/rest/graph-traversal/shortest-path`, POST `/rest/handling/repor
 
 Cel: poznać drogę żądania i przygotować zwięzłe zasady pracy. Pierwsza sesja tylko czyta.
 
-```bash
+```powershell
 codex -s read-only
 ```
 
@@ -156,11 +158,11 @@ Sprawdź trzy wskazane pliki samodzielnie. Oczekiwany wynik: mapa przepływu i k
 
 Cel: najpierw uzgodnić kontrakt. Przełącz się do nowej sesji z prawem zapisu i gałęzi funkcji.
 
-```bash
+```powershell
 git switch -c feature/cargo-status
 ```
 
-```bash
+```powershell
 codex -s workspace-write
 ```
 
@@ -176,15 +178,15 @@ Sprawdź znaczenie statusów w `Delivery`; nie utożsamiaj `transportStatus` z t
 
 Cel: trzy rozłączne zakresy przy wspólnym kontrakcie. Najpierw zapisz zatwierdzone dokumenty i czerwone testy w jednym commicie, jawnie wskazując pliki. Worktrees tworzysz świadomie na potrzeby tego ćwiczenia. Każdy ma inną gałąź; agenci nie wykonują Git push ani commitów.
 
-```bash
+```powershell
 git worktree add ../cargo-tracker.worktrees/backend -b task/status-backend
 ```
 
-```bash
+```powershell
 git worktree add ../cargo-tracker.worktrees/tests -b task/status-tests
 ```
 
-```bash
+```powershell
 git worktree add ../cargo-tracker.worktrees/ui -b task/status-ui
 ```
 
@@ -199,7 +201,7 @@ Dla każdego worktree skopiuj jego brief do odpowiedniej sesji. Po odebraniu zmi
 Prompt po scaleniu:
 
 ```text
-Sprawdź scalony wynik względem PRD. Uruchom testy zasobu i DTO, potem pełne ./mvnw -B clean package. Doprowadź testy do zielonego bez osłabiania asercji i bez pomijania testów. Pokaż, gdzie testy odróżniają 400 od 404, jak potwierdzają brak zapisu i jak uruchamiany jest test HTTP: samo wywołanie metody Java nie sprawdza routingu ani serializacji. Otwórz w przeglądarce public/status-help.xhtml i istniejące public/track.xhtml, sprawdź link i ładunek ABC123. Zgłoś każdą niewykonaną kontrolę.
+Sprawdź scalony wynik względem PRD. Uruchom testy zasobu i DTO, potem pełne .\mvnw.cmd -B clean package. Doprowadź testy do zielonego bez osłabiania asercji i bez pomijania testów. Pokaż, gdzie testy odróżniają 400 od 404, jak potwierdzają brak zapisu i jak uruchamiany jest test HTTP: samo wywołanie metody Java nie sprawdza routingu ani serializacji. Otwórz w przeglądarce public/status-help.xhtml i istniejące public/track.xhtml, sprawdź link i ładunek ABC123. Zgłoś każdą niewykonaną kontrolę.
 ```
 
 Sprawdź 200/400/404 i zgodność JSON z PRD. Wynik: zielone testy, działający nowy widok Faces i śledzenie ABC123. Usuń trzy worktrees dopiero po zachowaniu ich commitów; wykonaj `git worktree remove` dla każdego katalogu, potem `git worktree prune`. Nie używaj `--force`.
@@ -208,7 +210,7 @@ Sprawdź 200/400/404 i zgodność JSON z PRD. Wynik: zielone testy, działający
 
 Cel: niezależne spojrzenie bez historii autora. Uruchom osobną sesję tylko do odczytu.
 
-```bash
+```powershell
 codex -s read-only
 ```
 
@@ -222,7 +224,7 @@ Uczestnik ocenia uwagi, zleca poprawki w sesji autora i ponawia właściwe testy
 
 Cel: dać drugiej osobie kontekst i dowody. Po weryfikacji i jawnych commitach:
 
-```bash
+```powershell
 git push -u origin feature/cargo-status
 ```
 
@@ -230,26 +232,26 @@ git push -u origin feature/cargo-status
 Przygotuj docs/mr-description.md: problem, kontrakt endpointu, przykład odpowiedzi, zakres UI, lista testów z rzeczywistymi wynikami i ryzyka. Nie twórz fikcyjnych wyników CI. Uwzględnij rozstrzygnięcia review. Nie wysyłaj niczego samodzielnie.
 ```
 
-```bash
-glab mr create --repo "gitlab.com/${GITLAB_LOGIN}/cargo-tracker-codex" --source-branch feature/cargo-status --target-branch master --title 'Dodaj odczyt statusu ładunku' --description-file docs/mr-description.md --draft --yes
+```powershell
+glab mr create --repo "gitlab.com/${env:GITLAB_LOGIN}/cargo-tracker-codex" --source-branch feature/cargo-status --target-branch master --title 'Dodaj odczyt statusu ładunku' --description-file docs/mr-description.md --draft --yes
 ```
 
 Sprawdź URL i diff MR, gałąź docelową `master` oraz własny projekt. Wynik: draft MR, bez automatycznego merge. Brak pipeline w nowym projekcie jest możliwy; lokalne wyniki testów nadal muszą być opisane uczciwie.
 
 ## 6. Migracja wydzielonego zakresu javax do jakarta, 60-90 minut
 
-Cel: mała migracja z testami i porównaniem. `jakartaee8` używa nazw pakietów `javax`, choć zależność nazywa się `jakarta.jakartaee-api:8.0.0`. Ta gałąź nie ma `mvnw`. Przygotuj czyste drzewo, przejdź na jej nową gałąź i zachowaj wrapper z `master`:
+Cel: mała migracja z testami i porównaniem. `jakartaee8` używa nazw pakietów `javax`, choć zależność nazywa się `jakarta.jakartaee-api:8.0.0`. Ta gałąź nie ma Maven Wrappera. Przygotuj czyste drzewo, przejdź na jej nową gałąź i zachowaj wrapper z `master`:
 
-```bash
+```powershell
 git switch -c exercise/migrate-location jakartaee8
 ```
 
-```bash
-git restore --source=master -- mvnw .mvn
+```powershell
+git restore --source=master -- mvnw mvnw.cmd .mvn
 ```
 
-```bash
-./mvnw -B clean package
+```powershell
+.\mvnw.cmd -B clean package
 ```
 
 Prompt:
@@ -258,10 +260,10 @@ Prompt:
 Przeczytaj POM i testy gałęzi jakartaee8 oraz porównaj domain/model/location z master. Przygotuj PRD i plan wydzielenia edukacyjnego modułu migration-location, obejmującego UnLocode i Location oraz testy ich kontraktu. Zaczekaj na potwierdzenie. Potem utwórz niezależny moduł Maven w migration-location/pom.xml, bez dodawania go do głównego WAR. Najpierw zachowaj zachowanie na javax i testy na JDK 17, potem zmień wyłącznie migrowane API na jakarta.persistence i jakarta.validation z API Jakarta EE 10. Zastosuj właściwą wersję JUnit do nowego modułu i zachowaj zależność commons-lang3 potrzebną klasom gałęzi EE8 z Validate. Nie rób globalnej zamiany javax: javax.sql, javax.naming i javax.crypto należą do Java SE. Nie zmieniaj serwera ani PrimeFaces w starym WAR. Porównaj wynik z master, wyjaśnij różnice i podaj ograniczenia: to migracja wydzielonego modułu, nie całej aplikacji. Uruchom testy przed i po migracji, a także testy starego WAR; zapisz wyniki i diff.
 ```
 
-Polecenie N, moduł powstanie dopiero podczas ćwiczenia:
+Po utworzeniu modułu podczas ćwiczenia uruchom jego testy:
 
-```bash
-./mvnw -B -f migration-location/pom.xml test
+```powershell
+.\mvnw.cmd -B -f migration-location/pom.xml test
 ```
 
 Sprawdź zachowane reguły domeny, importy oraz brak przypadkowych zmian w WAR. Wynik: mały moduł kompilujący się z `jakarta`, testy zielone przed i po zmianie, stary WAR nadal sprawdzalny. Częściowe przepisanie jednego pakietu wewnątrz starego WAR bez wydzielenia nie jest poprawną migracją całej aplikacji.
@@ -270,4 +272,4 @@ Sprawdź zachowane reguły domeny, importy oraz brak przypadkowych zmian w WAR. 
 
 Na VM 8 GB zaplanuj jeden Maven/Payara naraz; IntelliJ i przeglądarka też zużywają RAM. Rezerwuj 10-15 minut na pierwsze pobieranie, 2-5 minut na kolejne pełne testy. Sama Payara Micro ma około 102 MB, dystrybucja serwera około 173 MB; cache i rozpakowany serwer zajmują więcej. Potrzebne są GitHub, Maven Central, GitLab.com i dostęp Codexa. Zajęte 8080/9090/4848 albo brak JDK to problemy środowiska, nie czerwony test TDD.
 
-Źródła składni: [tworzenie projektu](https://docs.gitlab.com/cli/repo/create/), [logowanie](https://docs.gitlab.com/cli/auth/login/), [merge request](https://docs.gitlab.com/cli/mr/create/). Buildy wykonano w izolowanym katalogu z lokalnym cache; raport trenera zawiera dokładne polecenia i logi.
+Źródła składni: [tworzenie projektu](https://docs.gitlab.com/cli/repo/create/), [logowanie](https://docs.gitlab.com/cli/auth/login/), [merge request](https://docs.gitlab.com/cli/mr/create/).

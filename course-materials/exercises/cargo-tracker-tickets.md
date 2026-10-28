@@ -78,40 +78,40 @@ Wszystkie ścieżki Java są względem `src/main/java/org/eclipse/cargotracker/`
 
 ## Utworzenie zgłoszeń we własnym GitLabie
 
-**Status N dla wszystkich poleceń poniżej: nie uruchomiono, nie mamy tu konta GitLab.** Składnię sprawdzono 28.10.2026 w [oficjalnej dokumentacji glab issue create](https://docs.gitlab.com/cli/issue/create/). Uruchom w katalogu swojego Cargo Tracker z `origin` wskazującym własny projekt. Każde polecenie tworzy nowe zgłoszenie, więc nie wykonuj go drugi raz bez sprawdzenia listy issues. Opisy zawierają najważniejsze kryteria; pełne warunki są powyżej.
+W PowerShell na VM z Windows 11 uruchom w katalogu swojego Cargo Tracker z `origin` wskazującym własny projekt. Każde polecenie tworzy nowe zgłoszenie, więc nie wykonuj go drugi raz bez sprawdzenia listy issues. Opisy zawierają najważniejsze kryteria; pełne warunki są powyżej.
 
-```bash
+```powershell
 glab issue create --title 'T1: UnLocode niezależny od locale' --description 'S, 30-45 min. src/main/java/org/eclipse/cargotracker/domain/model/location/UnLocode.java i analogiczny UnLocodeTest. Dla tr-TR fihel daje FİHEL. Odtwórz czerwonym testem, przywracaj locale w finally, użyj Locale.ROOT, oczekuj FIHEL. Zachowaj pozostałą walidację.' --yes
 ```
 
-```bash
+```powershell
 glab issue create --title 'T2: Testy wartości TrackingId' --description 'XS, 15-25 min. Nowy src/test/java/org/eclipse/cargotracker/domain/model/cargo/TrackingIdTest.java. Null, równość i nierówność, inny typ, hashCode, getIdString i toString. Udokumentuj przyjmowanie pustego tekstu przez konstruktor. Bez kontenera i zmian produkcyjnych.' --yes
 ```
 
-```bash
+```powershell
 glab issue create --title 'T3: Testy wartości VoyageNumber' --description 'XS, 15-25 min. Nowy src/test/java/org/eclipse/cargotracker/domain/model/voyage/VoyageNumberTest.java. Sprawdź null, equals, hashCode, getIdString, toString i zachowanie wielkości liter według obecnego konstruktora. Bez kontenera i nowej normalizacji.' --yes
 ```
 
-```bash
+```powershell
 glab issue create --title 'T4: Testy DateConverter' --description 'S, 30-45 min. Nowy src/test/java/org/eclipse/cargotracker/application/util/DateConverterTest.java. Round-trip daty i czasu, północ, południe, rok przestępny, błędny tekst i null. Kontroluj locale inicjalizacji. Obecny wzorzec h:m nie dodaje zer minut. Nie zmieniaj formatu.' --yes
 ```
 
-```bash
+```powershell
 glab issue create --title 'T5: AND i krótkie spięcie' --description 'XS, 15-25 min. Nowy src/test/java/org/eclipse/cargotracker/domain/shared/AndSpecificationTest.java. Cztery kombinacje prawdy, pominięcie prawego operandu przy false i przekazywanie argumentu. Licznik zamiast biblioteki mocków, bez kontenera.' --yes
 ```
 
-```bash
+```powershell
 glab issue create --title 'T6: OR i krótkie spięcie' --description 'XS, 15-25 min. Nowy src/test/java/org/eclipse/cargotracker/domain/shared/OrSpecificationTest.java. Cztery kombinacje prawdy, pominięcie prawego operandu przy true, jego wywołanie przy false i przekazywanie argumentu. Bez kontenera.' --yes
 ```
 
-```bash
+```powershell
 glab issue create --title 'T7: Testy negacji NOT' --description 'XS, 15-25 min. Nowy src/test/java/org/eclipse/cargotracker/domain/shared/NotSpecificationTest.java. Negacja true i false, jedno wywołanie predykatu i ten sam argument. Bez zmiany interfejsu Specification ani innych operatorów.' --yes
 ```
 
-```bash
+```powershell
 glab issue create --title 'T8: IN_PORT pokazuje bieżący port' --description 'S, 30-45 min. interfaces/tracking/web/CargoTrackingViewAdapter.java pod src/main/java/org/eclipse/cargotracker oraz nowy test w analogicznym pakiecie. Odtwórz port pośredni różny od celu. Tekst IN_PORT ma wskazywać ostatnią lokalizację. Zachowaj NOT_RECEIVED i CLAIMED, używaj publicznego modelu bez refleksji.' --yes
 ```
 
-```bash
+```powershell
 glab issue create --title 'T9: Walidacja typu zdarzenia REST' --description 'S, 30-45 min. interfaces/handling/rest/HandlingReport.java pod src/main/java/org/eclipse/cargotracker i nowy test walidacji. Size 4-7 przyjmuje BOGUS, a valueOf go odrzuca. Przyjmuj RECEIVE, LOAD, UNLOAD, CUSTOMS, CLAIM; inne wartości i pusty tekst mają dać 400 bez publikacji zdarzenia. Pokaż walidację DTO i osobno HTTP. Bez zmiany dat i JMS.' --yes
 ```

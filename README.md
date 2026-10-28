@@ -11,7 +11,7 @@ Aktualny [program szkolenia](course-materials/course-agenda.md).
 
 Repozytorium uczestnika szkolenia JSystems (28-30.10.2026, online, 09:00-16:00). W czasie szkolenia (3 dni) przechodzimy pełny cykl wytwarzania oprogramowania z agentami AI: od pomysłu i wymagań (PRD), przez decyzje architektoniczne (ADR), plan, implementację i testy, po code review, bezpieczeństwo i CI/CD.
 
-Głównym narzędziem jest **OpenAI Codex**: CLI na przygotowanej VM Linux oraz porównanie pracy w aplikacji ChatGPT w trybie Codex, IntelliJ IDEA i VS Code. Java jest kontekstem ćwiczeń, a nie osobnym kursem frameworków. Trener zapewnia konto ChatGPT Business; firmowe Enterprise pozostaje do codziennej pracy. GitLab.com służy do własnych projektów, issues i merge requestów przez `glab`.
+Głównym narzędziem jest **OpenAI Codex**: CLI na przygotowanej VM z Windows 11, w PowerShell oraz porównanie pracy w aplikacji ChatGPT w trybie Codex, IntelliJ IDEA i VS Code. Java jest kontekstem ćwiczeń, a nie osobnym kursem frameworków. Na VM używamy natywnego sandboxu Windows; WSL nie jest wymagany. [Sprawdź dostęp i narzędzia](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/preflight.html). Trener zapewnia konto ChatGPT Business; firmowe Enterprise pozostaje do codziennej pracy. GitLab.com służy do własnych projektów, issues i merge requestów przez `glab`.
 
 ## Trzy projekty, trzy dni
 
