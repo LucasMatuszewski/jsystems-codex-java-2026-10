@@ -48,7 +48,7 @@ Brak `idea` w PATH nie wyklucza instalacji graficznej. Otwórz IntelliJ z pulpit
 codex login status
 ```
 
-Pracujemy na GitLabie kursu (GitLab 19.5, self-managed), nie na GitLab.com. Login, hasło i token dostajesz od trenera w prywatnej wiadomości. Tokena nie wklejaj na czat ani do Codex.
+Pracujemy na GitLab szkoleniowym (GitLab 19.5, self-managed), nie na GitLab.com. Login, hasło i token dostajesz od trenera w prywatnej wiadomości. Tokena nie wklejaj na czat ani do Codex.
 
 ```powershell
 $env:GL = 'jsystems-gitlab.polandcentral.cloudapp.azure.com'
@@ -276,9 +276,9 @@ glab mr create --repo "${env:GL}/${env:GITLAB_LOGIN}/cargo-tracker-codex" --sour
 
 Sprawdź URL i diff MR, gałąź docelową `master` oraz własny projekt. Wynik: draft MR, bez automatycznego merge. Upstream Cargo Tracker nie ma .gitlab-ci.yml, więc samo utworzenie MR nie uruchomi testów w GitLab CI. Pipeline dodasz w następnym kroku.
 
-## CI/CD w GitLabie kursu
+## CI/CD w GitLab szkoleniowym
 
-Cel: build i 35 testów przy każdym pushu, review Codex jako komentarz w MR i reakcja agenta na nieudany pipeline. Runner GitLaba kursu buduje Cargo Tracker w około minutę. Klucz modelu dla review (`OPENROUTER_API_KEY`) ustawia trener dla całej instancji; review używa modelu Luna.
+Cel: build i 35 testów przy każdym pushu, review Codex jako komentarz w MR i reakcja agenta na nieudany pipeline. Runner GitLab szkoleniowego buduje Cargo Tracker w około minutę. Klucz modelu dla review (`OPENROUTER_API_KEY`) ustawia trener dla całej instancji; review używa modelu Luna.
 
 Pliki pipeline'u są w repozytorium kursu. Jeśli nie masz go na VM, sklonuj je obok `cargo-tracker` (z katalogu `cargo-tracker`):
 

@@ -10,7 +10,7 @@ Najpierw sprawdź politykę firmy. Jeśli IT może przygotować osobne konto Win
 |---|---|
 | logowanie Codex (`auth.json` w pliku), historia, konfiguracja, baza SQLite | konto Windows: agent może czytać pliki poza folderem kursu, sandbox ogranicza głównie zapis |
 | ustawienia i rozszerzenia VS Code tej instancji | aplikacja ChatGPT Desktop i IntelliJ: nie przelogowuj ich na konto szkoleniowe |
-| logowanie glab do GitLaba kursu | przeglądarka: do logowania użyj osobnego profilu lub okna prywatnego |
+| logowanie glab do GitLab szkoleniowego | przeglądarka: do logowania użyj osobnego profilu lub okna prywatnego |
 | zapisy do globalnej konfiguracji Git (Twój `.gitconfig` jest tylko czytany) | menedżer poświadczeń Windows i klucze SSH |
 
 W oknie KURS otwieraj wyłącznie repozytoria szkoleniowe z `%USERPROFILE%\CodexKurs\repos`. Nie otwieraj tam repozytoriów firmowych.
