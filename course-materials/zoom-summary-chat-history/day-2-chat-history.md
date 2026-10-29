@@ -2,7 +2,37 @@
 
 Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią nieodwracalnej anonimizacji. Reakcje oznaczają zliczenia przy wiadomościach, nie rozłączne głosy ani liczbę uczestników.
 
-Zapis obejmuje 47 wiadomości dostępnych po awarii i ponownym uruchomieniu Zoom: 13:49–16:32 (Europe/Warsaw), po przerwie obiadowej. Wcześniejsza część czatu nie była dostępna podczas eksportu; brakujące linki zostaną uzupełnione na podstawie materiałów trenera. Podsumowanie dnia powstanie po otrzymaniu notatek Zoom i pozostałych linków.
+Zapis obejmuje 47 wiadomości dostępnych po awarii i ponownym uruchomieniu Zoom: 13:49–16:32 (Europe/Warsaw), po przerwie obiadowej. Wcześniejsza część czatu nie była dostępna podczas eksportu; linki przekazane później przez trenera uzupełniono w osobnej sekcji poniżej. Podsumowanie dnia powstanie po otrzymaniu notatek Zoom.
+
+## Linki wysłane przed awarią Zoom
+
+Poniższe linki trener wysłał przed awarią Zoom; uzupełniają adresy zachowane w wiadomościach poniżej. Zoom udostępnił jedynie listę linków, bez treści wiadomości i znaczników czasu, dlatego ich kolejność nie odzwierciedla chronologii czatu. Pominięto duplikaty oraz linki już obecne w zachowanym zapisie; krótkie opisy dodano redakcyjnie.
+
+- [Sandboxing i harness — Codex a Claude Code](https://github.com/LucasMatuszewski/jsystems-codex-java-2026-10/blob/main/course-materials/Research/Sandboxing-and-harness-in-Codex-vs-ClaudeCode.md) — Porównanie izolacji środowiska i mechanizmów sterujących pracą obu agentów.
+- [Codex na Windows — problemy z sandboxem](https://github.com/LucasMatuszewski/jsystems-codex-java-2026-10/blob/main/course-materials/Research/codex-windows-sandbox-troubleshooting-2026-10-15.md) — Materiał o diagnozowaniu problemów z sandboxem Codex na Windows.
+- [Ustawienia Claude Code](https://github.com/LucasMatuszewski/jsystems-codex-java-2026-10/blob/main/.claude/settings.json) — Plik ustawień Claude Code z repozytorium szkoleniowego.
+- [jFTP](https://github.com/sai-pullabhotla/jftp) — Repozytorium klienta FTP w Javie analizowanego i modernizowanego podczas szkolenia.
+- [Computer use](https://learn.chatgpt.com/docs/computer-use) — Dokumentacja obsługi interfejsu komputera przez agenta.
+- [Restic](https://restic.net/) — Narzędzie do tworzenia i odtwarzania kopii zapasowych.
+- [JSystems](https://jsystems.pl/) — Strona organizatora szkolenia.
+- [Agent Toolbox w katalogu skills.sh](https://skills.sh/EdukeyTeam/agent-toolbox) — Lista skills udostępnianych przez EdukeyTeam w pakiecie Agent Toolbox.
+- [Reguły i instrukcje dla agenta](https://learn.chatgpt.com/docs/agent-configuration/rules) — Dokumentacja reguł i instrukcji przekazywanych agentowi.
+- [Micro](https://micro-editor.github.io/) — Edytor tekstu działający w terminalu.
+- [Historia czatu i podsumowania](https://github.com/LucasMatuszewski/jsystems-codex-java-2026-10/tree/main/course-materials/zoom-summary-chat-history) — Folder repozytorium z zapisami czatu i podsumowaniami dni szkoleniowych.
+- [Skills dla repository-checker](https://github.com/LucasMatuszewski/jsystems-codex-java-2026-10/tree/main/course-materials/agent-configs/microsoft-365-copilot/repository-checker/agent/skills) — Przykładowe skills agenta sprawdzającego repozytorium w konfiguracji Microsoft 365 Copilot.
+- [Instadocs: AI Gone Wild](https://www.netflix.com/tudum/articles/instadocs-ai-gone-wild-release-date-news) — Artykuł Netflix o dokumencie poświęconym incydentowi z agentami AI i Hugging Face.
+- [Konfiguracja Codex — config.toml](https://github.com/LucasMatuszewski/jsystems-codex-java-2026-10/blob/main/course-materials/agent-configs/codex/config.toml) — Przykładowy plik konfiguracji Codex z repozytorium szkoleniowego.
+- [Atuin](https://atuin.sh/) — Narzędzie do wyszukiwania i synchronizacji historii poleceń terminala.
+- [Dev Drive na Windows](https://learn.microsoft.com/en-us/windows/dev-drive/) — Dokumentacja woluminu dyskowego Windows przeznaczonego do pracy programistycznej.
+- [Repozytorium Agent Toolbox](https://github.com/EdukeyTeam/agent-toolbox/tree/main) — Kod źródłowy i instrukcje korzystania ze skills EdukeyTeam.
+- [Fresh](https://getfresh.dev/) — Środowisko programistyczne w terminalu z obsługą edycji kodu, Gita i agentów.
+- [skills.sh](https://www.skills.sh/) — Katalog skills dostępnych dla agentów AI.
+- [Konfiguracje Codex](https://github.com/LucasMatuszewski/jsystems-codex-java-2026-10/tree/main/course-materials/agent-configs/codex) — Folder z przykładowymi ustawieniami i materiałami konfiguracyjnymi Codex.
+- [Incydent w Hugging Face i dalsze kroki](https://openai.com/pl-PL/index/hugging-face-incident-and-the-road-ahead/) — Opis incydentu opublikowany przez OpenAI wraz z wnioskami i działaniami dotyczącymi zabezpieczeń.
+- [Przykłady hooków](https://github.com/LucasMatuszewski/jsystems-codex-java-2026-10/tree/main/course-materials/hooks-example) — Materiały pokazujące wykorzystanie hooków w pracy z agentami.
+- [Repozytorium szkolenia](https://github.com/LucasMatuszewski/jsystems-codex-java-2026-10) — Główne repozytorium z materiałami do kursu Codex w projektach Java.
+- [Uprawnienia agenta](https://learn.chatgpt.com/docs/permissions) — Dokumentacja uprawnień i zatwierdzania działań agenta.
+- [Playwright Extension](https://chromewebstore.google.com/detail/playwright-extension/mmlmfjhmonkocbjadbfplnigmagldckm) — Rozszerzenie Chrome umożliwiające podłączenie Playwright do istniejącej karty przeglądarki.
 
 ## Wiadomości
 
