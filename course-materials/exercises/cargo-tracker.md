@@ -338,7 +338,17 @@ glab mr create --source-branch ci/pipeline --target-branch master --title 'CI: b
 glab ci status --live
 ```
 
-Po zielonym buildzie sprawdź komentarz review w MR (`glab mr view --comments`), scal MR do `master` (`glab mr merge`) i włącz pipeline do gałęzi z kroku 5:
+Po zielonym buildzie sprawdź komentarz review w MR (`glab mr view --comments`) i scal MR do `master` (`glab mr merge`).
+
+Jeśli nie robiłeś kroków 1-5 (ścieżka dnia 3), utwórz gałąź zgłoszenia od zaktualizowanego `master` i pomiń poniższe włączanie pipeline do `feature/cargo-status`:
+
+```powershell
+git switch master
+git pull
+git switch -c t5-and-specification
+```
+
+Jeśli masz gałąź z kroku 5, włącz do niej pipeline:
 
 ```powershell
 git switch feature/cargo-status
