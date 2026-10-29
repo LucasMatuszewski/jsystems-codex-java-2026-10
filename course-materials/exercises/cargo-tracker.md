@@ -274,7 +274,78 @@ Przygotuj docs/mr-description.md: problem, kontrakt endpointu, przykład odpowie
 glab mr create --repo "${env:GL}/${env:GITLAB_LOGIN}/cargo-tracker-codex" --source-branch feature/cargo-status --target-branch master --title 'Dodaj odczyt statusu ładunku' --description-file docs/mr-description.md --draft --yes
 ```
 
-Sprawdź URL i diff MR, gałąź docelową `master` oraz własny projekt. Wynik: draft MR, bez automatycznego merge. Upstream Cargo Tracker nie ma .gitlab-ci.yml, więc samo utworzenie MR nie uruchomi naszych testów w GitLab CI. Minimalny pipeline przygotujesz i sprawdzisz przez glab ci lint w [P32](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/prompty.html#P32-gitlab-mr) przy własnym zadaniu. Lint sprawdza konfigurację, a nie wynik testów. GitLab.com może wymagać weryfikacji konta przed udostępnieniem shared runners. Lokalny wynik i stan CI raportuj osobno, bez obietnicy zielonego pipeline.
+Sprawdź URL i diff MR, gałąź docelową `master` oraz własny projekt. Wynik: draft MR, bez automatycznego merge. Upstream Cargo Tracker nie ma .gitlab-ci.yml, więc samo utworzenie MR nie uruchomi testów w GitLab CI. Pipeline dodasz w następnym kroku.
+
+## CI/CD w GitLabie kursu
+
+Cel: build i 35 testów przy każdym pushu, review Codex jako komentarz w MR i reakcja agenta na nieudany pipeline. Runner GitLaba kursu buduje Cargo Tracker w około minutę. Klucz modelu dla review (`OPENROUTER_API_KEY`) ustawia trener dla całej instancji; review używa modelu Luna.
+
+Pliki pipeline'u są w repozytorium kursu. Jeśli nie masz go na VM, sklonuj je obok `cargo-tracker` (z katalogu `cargo-tracker`):
+
+```powershell
+git clone "https://${env:GL}/codex-java/kurs.git" ..\kurs
+```
+
+Pipeline dodaj na osobnej gałęzi od `master`:
+
+```powershell
+git switch master
+```
+
+```powershell
+git switch -c ci/pipeline
+```
+
+```powershell
+New-Item -ItemType Directory -Force ci | Out-Null
+Copy-Item -Recurse ..\kurs\course-materials\cicd-headless\agent-review ci\agent-review
+```
+
+```powershell
+Copy-Item ..\kurs\course-materials\cicd-headless\gitlab-cargo-tracker\.gitlab-ci.yml .
+```
+
+```powershell
+glab ci lint
+```
+
+```powershell
+git add .gitlab-ci.yml ci
+git commit -m "CI: build, testy i review Codex"
+git push -u origin ci/pipeline
+```
+
+Job review publikuje komentarz w MR Twoim tokenem. Zapisz go jako zmienną projektu (wklej token z prywatnej wiadomości, nie do czatu):
+
+```powershell
+$t = Read-Host 'Token'
+$t | glab variable set GITLAB_TOKEN --masked
+Remove-Variable t
+```
+
+```powershell
+glab mr create --source-branch ci/pipeline --target-branch master --title 'CI: build, testy i review Codex' --description 'Pipeline kursu' --yes
+```
+
+```powershell
+glab ci status --live
+```
+
+Po zielonym buildzie sprawdź komentarz review w MR (`glab mr view --comments`), scal MR do `master` (`glab mr merge`) i włącz pipeline do gałęzi z kroku 5:
+
+```powershell
+git switch feature/cargo-status
+git merge master
+git push
+```
+
+Teraz MR z kroku 5 uruchamia build, testy i review Codex. Jeśli pipeline nie przejdzie, poproś agenta o analizę:
+
+```text
+Pipeline w moim MR nie przeszedł. Odczytaj log nieudanego joba przez glab ci trace, wskaż przyczynę z cytatem z logu i zaproponuj minimalną poprawkę. Odtwórz błąd lokalnie tym samym poleceniem Maven, popraw kod, nie zmieniaj testów po to, by ukryć błąd. Pokaż diff i wynik testów, nie pushuj bez mojej zgody.
+```
+
+Job review działa w kontenerze Docker, w którym sandbox Codex na Linuksie (bubblewrap) nie może utworzyć przestrzeni nazw. Dlatego pipeline ustawia `CODEX_SANDBOX: danger-full-access`: granicą jest kontener, a klucze są szkoleniowe i z limitem. W firmowym CI dobierz izolację runnera świadomie. Szczegóły: [agent review](../cicd-headless/agent-review/README.md).
 
 ## 6. Migracja wydzielonego zakresu javax do jakarta, 60-90 minut
 
