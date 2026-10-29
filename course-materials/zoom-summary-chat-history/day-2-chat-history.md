@@ -114,3 +114,21 @@ Zapis obejmuje 47 wiadomości dostępnych po awarii i ponownym uruchomieniu Zoom
   ![Zrzut interfejsu terminalowego z panelem podagentów i listą technicznych zadań.](https://raw.githubusercontent.com/LucasMatuszewski/jsystems-codex-java-2026-10/main/course-materials/zoom-summary-chat-history/day-2-01.png)
 
 - **16:32 — Łukasz Matuszewski:** I want you to set up a monitor, a Bash script that will resume you after 5:10 pm. Your 5-hour quota limit will probably not last until this hour because you have only 16% left. So I want you to set this script to resume after the quota limit resets. At 4 minutes after 5, the quota will reset, and you can continue after this hour.
+
+- **17:30 — Odpowiedź agenta Codex odnośnie Monitoringu:** 
+The monitor fired at 17:10, but its resume command failed: the CLI rejects combining --sandbox with --approve-for-me. I missed that conflict in the initial validation. I’m correcting the script and its regression check; this session is already active, so another resume attempt is unnecessary. I’ll then finish the UML documents.
+
+```
+Edited tests\test_resume_monitor.py (+2 -1)
+
+-        self.assertIn("--sandbox workspace-write --approve-for-me resume", calls[0])
+
++        self.assertIn("--approve-for-me resume", calls[0])
+
++        self.assertNotIn("--sandbox", calls[0], "--approve-for-me already selects workspace-write")
+```
+
+- **Additional settings to add:**
+  - `/experimental`
+  - Analytics plan history
+  - prevent sleep
