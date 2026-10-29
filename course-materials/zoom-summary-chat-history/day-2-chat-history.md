@@ -1,8 +1,8 @@
 # Historia czatu — dzień 2, 29 października 2026
 
-Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią nieodwracalnej anonimizacji. Reakcje oznaczają zliczenia przy wiadomościach, nie rozłączne głosy ani liczbę uczestników.
+Wiadomości publiczne w kolejności chronologicznej. Reakcje oznaczają zliczenia przy wiadomościach, nie rozłączne głosy ani liczbę uczestników.
 
-Zapis obejmuje 47 wiadomości dostępnych po awarii i ponownym uruchomieniu Zoom: 13:49–16:32 (Europe/Warsaw), po przerwie obiadowej. Wcześniejsza część czatu nie była dostępna podczas eksportu; linki przekazane później przez trenera uzupełniono w osobnej sekcji poniżej. Podsumowanie dnia powstanie po otrzymaniu notatek Zoom.
+Zapis obejmuje 47 wiadomości dostępnych po awarii i ponownym uruchomieniu Zoom: 13:49–16:32 (Europe/Warsaw), po przerwie obiadowej. Wcześniejsza część czatu nie była dostępna podczas eksportu; linki przekazane później przez trenera uzupełniono w osobnej sekcji poniżej.
 
 ## Linki wysłane przed awarią Zoom
 
