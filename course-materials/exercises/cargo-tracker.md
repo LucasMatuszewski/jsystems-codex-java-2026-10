@@ -286,6 +286,13 @@ Pliki pipeline'u są w repozytorium kursu. Jeśli nie masz go na VM, sklonuj je 
 git clone "https://${env:GL}/codex-java/kurs.git" ..\kurs
 ```
 
+Agent pracuje z GitLabem przez glab. Zasady nieinteraktywnego użycia (JSON, bez pagera, zgoda przed każdym zapisem) są w skillu [glab-course](../skills-examples/glab-course/SKILL.md). Skopiuj go do projektu, z katalogu `cargo-tracker`:
+
+```powershell
+New-Item -ItemType Directory -Force .agents\skills | Out-Null
+Copy-Item -Recurse ..\kurs\course-materials\skills-examples\glab-course .agents\skills\glab-course
+```
+
 Pipeline dodaj na osobnej gałęzi od `master`:
 
 ```powershell
