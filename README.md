@@ -5,7 +5,7 @@
 - **Działający przykład Codex w GitLab CI.** Obraz [`agent-ci:1`](course-materials/cicd-headless/agent-review/Dockerfile) ma teraz Codex CLI 0.165.0, a GitLab szkoleniowy wersję 19.5.3. Job `codex-review` z [pipeline Cargo Tracker](course-materials/cicd-headless/gitlab-cargo-tracker/.gitlab-ci.yml) przeszedł test end to end: build i testy na runnerze, review przez OpenRouter (`openai/gpt-6-luna`) i komentarz w merge requeście.
 - **Kod z kursu jest w repozytorium [JSystems-JFTP-2026-10-30](https://github.com/LucasMatuszewski/JSystems-JFTP-2026-10-30).** To repozytorium zawiera tylko materiały szkoleniowe; aplikacja jFTP i niemal cały kod wygenerowany na zajęciach są tam: AGENTS.md, PRD, plan implementacji, skill planowania, refaktor wizualny oraz pipeline GitLab CI/CD z lintem, testami i review PR-Agent. Szczegóły i przykład review znajdziesz w README tamtego repozytorium.
 - **[Research: COBOL i agenci AI](course-materials/Research/cobol-and-ai-agents-2026-10-28.md).** Jako punkt startowy do analizy i małych zmian w COBOL rekomendujemy GPT-6.1 Sol z rozumowaniem `high`, zawsze z pełnymi copybookami i pętlą kompilatora.
-- **[Przykład review Codex w merge requeście](course-materials/cicd-headless/agent-review/examples/codex-review-gitlab-mr-2026-10-30.md)** ze zrzutem ekranu: tak wygląda komentarz agenta wygenerowany przez job `codex-review`.
+- **[Codex review w GitLab CI: przetestowana konfiguracja](#codex-review-w-gitlab-ci-przetestowana-konfiguracja)** ze zrzutem ekranu komentarza agenta w merge requeście i [pełną treścią review](course-materials/cicd-headless/agent-review/examples/codex-review-gitlab-mr-2026-10-30.md).
 
 **Materiały szkoleniowe: [devpowers.com/szkolenia/jsystems/codex-java-2026-10](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/)**
 
@@ -29,6 +29,25 @@ Głównym narzędziem jest **OpenAI Codex**: CLI na przygotowanej VM z Windows 1
 [Otwórz dzień 1](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/dzien-1.html) · [dzień 2](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/dzien-2.html) · [dzień 3](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/dzien-3.html).
 
 Nie budujemy chatbota ani nowej usługi Spring AI. Dokumenty funkcji powstają podczas ćwiczeń w klonie Cargo Tracker, po analizie jego rzeczywistego kodu. [Program z oferty i uzgodniona trasa](course-materials/course-agenda.md) pokazują tę zmianę.
+
+## Codex review w GitLab CI: przetestowana konfiguracja
+
+Tę konfigurację przetestowałem 30.10.2026 na GitLab szkoleniowym (19.5.3, runner Docker) i możesz jej użyć we własnych projektach. [Pipeline](course-materials/cicd-headless/gitlab-cargo-tracker/.gitlab-ci.yml) ma dwa etapy:
+
+1. **build**: `./mvnw clean package` z testami przy każdym pushu i w każdym merge requeście, raport JUnit trafia do MR.
+2. **review**: job `codex-review` uruchamia się w każdym merge requeście, równolegle z buildem. W obrazie [`agent-ci:1`](course-materials/cicd-headless/agent-review/Dockerfile) (Codex CLI 0.165.0) skrypt [`agent_review.sh`](course-materials/cicd-headless/agent-review/agent_review.sh) wywołuje `codex exec` z [promptem review](course-materials/cicd-headless/agent-review/prompts/code-review.md) na diffie względem gałęzi docelowej, a [`post_review_comment.sh`](course-materials/cicd-headless/agent-review/post_review_comment.sh) publikuje wynik jako komentarz w MR. Model: `openai/gpt-6-luna` przez OpenRouter.
+
+Żeby uruchomić to u siebie:
+
+- skopiuj katalog [`agent-review`](course-materials/cicd-headless/agent-review/) do `ci/agent-review/` w swoim repozytorium, a plik pipeline jako `.gitlab-ci.yml`;
+- zbuduj obraz z `Dockerfile` i opublikuj go w swoim rejestrze (albo zbuduj go lokalnie na runnerze), potem podaj tę nazwę w `image:`;
+- dodaj zmienne CI/CD jako Masked: `OPENROUTER_API_KEY` oraz `GITLAB_TOKEN` (token z zakresem `api`, którym job komentuje MR).
+
+Agent znalazł też prawdziwe ryzyko w samej konfiguracji: job z kluczem API i tokenem GitLab daje Codex pełny dostęp do powłoki w kontenerze, więc prompt injection w MR mogłoby te sekrety wyciągnąć. W projekcie firmowym używaj kluczy z limitem kosztów, tokenu o minimalnych uprawnieniach i uruchamiaj review tylko dla zaufanych gałęzi.
+
+![Komentarz "Agent review (codex)" w merge requeście GitLab: blokujące problemy, problemy nieblokujące, brakujące testy i podsumowanie](course-materials/cicd-headless/agent-review/examples/codex-review-gitlab-mr-2026-10-30.png)
+
+[Pełna treść tego review](course-materials/cicd-headless/agent-review/examples/codex-review-gitlab-mr-2026-10-30.md).
 
 ## Biblioteka dodatkowa
 
