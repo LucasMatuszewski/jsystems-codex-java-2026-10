@@ -3,7 +3,7 @@
 ## Aktualizacje - 30.10.2026
 
 - **Działający przykład Codex w GitLab CI.** Obraz [`agent-ci:1`](course-materials/cicd-headless/agent-review/Dockerfile) ma teraz Codex CLI 0.165.0, a GitLab szkoleniowy wersję 19.5.3. Job `codex-review` z [pipeline Cargo Tracker](course-materials/cicd-headless/gitlab-cargo-tracker/.gitlab-ci.yml) przeszedł test end to end: build i testy na runnerze, review przez OpenRouter (`openai/gpt-6-luna`) i komentarz w merge requeście.
-- **Kod z kursu jest w repozytorium [JSystems-JFTP-2026-10-30](https://github.com/LucasMatuszewski/JSystems-JFTP-2026-10-30).** To repozytorium zawiera tylko materiały szkoleniowe; aplikacja jFTP i niemal cały kod wygenerowany na zajęciach są tam: AGENTS.md, PRD, plan implementacji, skill planowania, refaktor wizualny oraz pipeline GitLab CI/CD z lintem, testami i review PR-Agent. Szczegóły i przykład review znajdziesz w README tamtego repozytorium.
+- **Kod z kursu jest w repozytorium [JSystems-JFTP-2026-10-30](https://github.com/LucasMatuszewski/JSystems-JFTP-2026-10-30).** To repozytorium zawiera tylko materiały szkoleniowe; aplikacja jFTP i niemal cały kod wygenerowany na zajęciach są tam: AGENTS.md, PRD, plan implementacji, skill planowania, refaktor wizualny oraz pipeline GitLab CI/CD z lintem, testami i [review PR-Agent](https://github.com/LucasMatuszewski/JSystems-JFTP-2026-10-30#gitlab-cicd-and-ai-code-review). Szczegóły i przykład review znajdziesz w README tamtego repozytorium.
 - **[Research: COBOL i agenci AI](course-materials/Research/cobol-and-ai-agents-2026-10-28.md).** Jako punkt startowy do analizy i małych zmian w COBOL rekomendujemy GPT-6.1 Sol z rozumowaniem `high`, zawsze z pełnymi copybookami i pętlą kompilatora.
 - **[Codex review w GitLab CI: przetestowana konfiguracja](#codex-review-w-gitlab-ci-przetestowana-konfiguracja)** ze zrzutem ekranu komentarza agenta w merge requeście i [pełną treścią review](course-materials/cicd-headless/agent-review/examples/codex-review-gitlab-mr-2026-10-30.md).
 
@@ -31,6 +31,8 @@ Głównym narzędziem jest **OpenAI Codex**: CLI na przygotowanej VM z Windows 1
 Nie budujemy chatbota ani nowej usługi Spring AI. Dokumenty funkcji powstają podczas ćwiczeń w klonie Cargo Tracker, po analizie jego rzeczywistego kodu. [Program z oferty i uzgodniona trasa](course-materials/course-agenda.md) pokazują tę zmianę.
 
 ## Codex review w GitLab CI: przetestowana konfiguracja
+
+Ten przykład pokazuje review przez **Codex**. Drugi przykład, review przez **PR-Agent**, jest w repozytorium jFTP: [GitLab CI/CD i review PR-Agent](https://github.com/LucasMatuszewski/JSystems-JFTP-2026-10-30#gitlab-cicd-and-ai-code-review).
 
 Tę konfigurację przetestowałem 30.10.2026 na GitLab szkoleniowym (19.5.3, runner Docker) i możesz jej użyć we własnych projektach. [Pipeline](course-materials/cicd-headless/gitlab-cargo-tracker/.gitlab-ci.yml) ma dwa etapy:
 
