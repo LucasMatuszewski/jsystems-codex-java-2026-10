@@ -8,7 +8,7 @@
 - **What participants heard was almost right:** "simple chat is free, reasoning costs credits even in chat" matches the rate card. The free tier is Instant, not a "low" reasoning level, and a higher effort does not raise the per-message price on credit-based plans.
 - **Chat and Work:** the new ChatGPT desktop app (28.10.2026) puts Chat, Work and Codex in one app, but billing stays separate: Work is metered like Codex, Chat keeps chat rates. A merge of Chat and Work limits is not rolling out; a notice suggesting it was published by mistake.
 - **Voice in Codex CLI:** the old hold-Space dictation (`voice_transcription`) was removed in 0.118.0 (April 2026). In 0.165-0.166 the CLI has a **voice conversation** that you start and stop (toggle, not push-to-talk), with a separate microphone mute. Dictation into the composer is in the ChatGPT/Codex desktop app.
-- **`codex queue`:** works in 0.165-0.166. It adds a message to an existing session from another terminal or script; `--resume` (0.166) also wakes a session that is not loaded. In the TUI, `Tab` queues a follow-up for the next turn and `Enter` steers the running turn.
+- **`codex queue`:** works in 0.165-0.166. A message queued with `Tab` in the TUI is lost when you quit Codex; it is not saved with the session. It adds a message to an existing session from another terminal or script; `--resume` (0.166) also wakes a session that is not loaded. In the TUI, `Tab` queues a follow-up for the next turn and `Enter` steers the running turn.
 
 ## 1. Does ordinary chat use credits on ChatGPT Enterprise?
 
@@ -61,3 +61,13 @@ Checked locally: `codex features list` on 0.166.0 shows `in_app_voice` and `in_a
 - **Continue an earlier session:** `codex resume` (picker), `codex resume --last "next prompt"`, or non-interactively `codex exec resume --last "next prompt"`.
 
 Checked locally with `codex queue --help` on 0.165.0 (`--thread`, `--message`, `--resume`, `--remote`). Source: [openai/codex releases, rust-v0.166.0](https://github.com/openai/codex/releases).
+
+### Does a message queued with Tab survive leaving the session?
+
+**No.** Scenario from the course: during a running turn you type a message and press `Tab`, so it is queued instead of steering; you switch to another agent view and back, then quit Codex and later `codex resume` the session. The queued message is gone.
+
+- In the TUI source (`codex-rs/tui/src/chatwidget/user_messages.rs`, `ThreadInputState.queued_user_messages`, commit `2546265` of 30.10.2026) the queue is kept **only in the memory of the running TUI**. When you switch between agent views, the TUI saves it per thread in memory and restores it, so navigation alone does not drop it. Nothing writes it to the session file, so quitting Codex loses it and `codex resume` cannot bring it back.
+- The desktop app has the same reported problem: [openai/codex#32715](https://github.com/openai/codex/issues/32715) "Codex Desktop silently loses queued follow-up messages after restart" (open).
+- `codex queue --thread ... --message ...` is different: it adds the message through the app server, so it is stored with the thread and survives the TUI closing; `--resume` then wakes the thread.
+
+How not to lose a follow-up: wait until the turn finishes before quitting, use `Enter` to steer the running turn instead of queueing, or copy the queued text before you quit. For work you hand over to a later session, use `codex queue`.
