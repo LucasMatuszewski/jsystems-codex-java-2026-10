@@ -18,7 +18,7 @@ RUN apt-get update \
 # Pinned versions: reviews stay reproducible; bump them deliberately.
 ARG COPILOT_VERSION=1.0.88
 ARG CLAUDE_CODE_VERSION=2.1.283
-ARG CODEX_VERSION=0.157.1
+ARG CODEX_VERSION=0.165.0
 ARG OPENCODE_VERSION=1.18.32
 RUN npm install -g \
       @github/copilot@${COPILOT_VERSION} \
