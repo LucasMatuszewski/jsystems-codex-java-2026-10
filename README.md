@@ -9,6 +9,14 @@
 
 Aktualny [program szkolenia](course-materials/course-agenda.md).
 
+## Aktualizacje - 30.10.2026
+
+- **Działający przykład Codex w GitLab CI.** Obraz [`agent-ci:1`](course-materials/cicd-headless/agent-review/Dockerfile) ma teraz Codex CLI 0.165.0, a GitLab szkoleniowy wersję 19.5.3. Job `codex-review` z [pipeline Cargo Tracker](course-materials/cicd-headless/gitlab-cargo-tracker/.gitlab-ci.yml) przeszedł test end to end: build i testy na runnerze, review przez OpenRouter (`openai/gpt-6-luna`) i komentarz w merge requeście.
+- **Kod z kursu jest w repozytorium [JSystems-JFTP-2026-10-30](https://github.com/LucasMatuszewski/JSystems-JFTP-2026-10-30).** To repozytorium zawiera tylko materiały szkoleniowe; aplikacja jFTP i niemal cały kod wygenerowany na zajęciach są tam: AGENTS.md, PRD, plan implementacji, skill planowania, refaktor wizualny oraz pipeline GitLab CI/CD z lintem, testami i review PR-Agent. Szczegóły i przykład review znajdziesz w README tamtego repozytorium.
+- **[Research: COBOL i agenci AI](course-materials/Research/cobol-and-ai-agents-2026-10-28.md).** Jako punkt startowy do analizy i małych zmian w COBOL rekomendujemy GPT-6.1 Sol z rozumowaniem `high`, zawsze z pełnymi copybookami i pętlą kompilatora.
+- **[Przykład review Codex w merge requeście](course-materials/cicd-headless/agent-review/examples/codex-review-gitlab-mr-2026-10-30.md)** ze zrzutem ekranu: tak wygląda komentarz agenta wygenerowany przez job `codex-review`.
+
+
 Repozytorium uczestnika szkolenia JSystems (28-30.10.2026, online, 09:00-16:00). W czasie szkolenia (3 dni) przechodzimy pełny cykl wytwarzania oprogramowania z agentami AI: od pomysłu i wymagań (PRD), przez decyzje architektoniczne (ADR), plan, implementację i testy, po code review, bezpieczeństwo i CI/CD.
 
 Głównym narzędziem jest **OpenAI Codex**: CLI na przygotowanej VM z Windows 11, w PowerShell oraz porównanie pracy w aplikacji ChatGPT w trybie Codex, IntelliJ IDEA i VS Code. Java jest kontekstem ćwiczeń, a nie osobnym kursem frameworków. Na VM używamy natywnego sandboxu Windows; WSL nie jest wymagany. [Sprawdź dostęp i narzędzia](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/preflight.html). Trener zapewnia konto ChatGPT Business; firmowe Enterprise pozostaje do codziennej pracy. Własne projekty, zgłoszenia, merge requesty i CI/CD prowadzimy na GitLab szkoleniowym (`jsystems-gitlab.polandcentral.cloudapp.azure.com`, GitLab 19.5) przez `glab`; [konfiguracja w ćwiczeniu Cargo Tracker](course-materials/exercises/cargo-tracker.md).
