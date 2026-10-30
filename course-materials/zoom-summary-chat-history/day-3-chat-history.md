@@ -9,7 +9,8 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
 
 - **09:03 — Łukasz Matuszewski:** micro .codex/config.toml
 
-- **09:05 — Łukasz Matuszewski:** sandbox_mode = "danger-full-access"
+- **09:05 — Łukasz Matuszewski:** Nie róbcie tego na firmowych laptopach!!!
+  sandbox_mode = "danger-full-access"
 
 - **09:05 — Łukasz Matuszewski:** [windows]  
   allow_mxc = true  
@@ -121,17 +122,19 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
 - **10:48 — Łukasz Matuszewski:** AGENTS.md  
   https://learn.chatgpt.com/docs/agent-configuration/agents-md#create-global-guidance
 
-- **10:54 — Łukasz Matuszewski:** I want you to answer briefly. First, give information and answer my specific question. Only give more details after I ask, since they are not always necessary. Answer my question directly.  
-  I am a full-stack programmer. I work mostly in TypeScript. I also work in Python, Rust, a little Swift, and a little PHP, but I know these languages less well.  
+- **10:54 — Łukasz Matuszewski:** Example ~/.codex/AGENTS.md content for all projects:
+  ```md
+  I want you to answer briefly. First, give information and answer my specific question. Only give more details after I ask, since they are not always necessary. Answer my question directly. 
+  I am a full-stack programmer. I work mostly in TypeScript. I also work in Python, Rust, a little Swift, and a little PHP, but I know these languages less well.
+  I prefer KISS and YAGNI, over DRY.
   I work mainly as an AI trainer, teaching and showing how to use Codex, Claude, Copilot, and other AI tools for programmers. I also work here at a training company, where I create various tools for training, skills, automations, and the like.
-
-- **10:56 — Łukasz Matuszewski:** I prefer KISS and YAGNI, over DRY.
+  ```
 
 - **10:58 — Łukasz Matuszewski:** MATERIAŁY SZKOLENIOWE:  
   https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/index.html
 
 - **10:58 — Łukasz Matuszewski:** https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/checklisty.html#harness  
-  Po szkoleniu checklist
+  Po szkoleniu checklist - TODO dla Was
 
 - **11:03 — Łukasz Matuszewski:** Koniec przerwy 11:20
 
@@ -139,7 +142,7 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
 
 - **11:27 — Łukasz Matuszewski:** You don't know the latest versions of Next.js 17 and TypeScript 7, so when using these tools, you should check the documentation every time because your built-in knowledge is out of date on this topic.
 
-- **11:28 — Łukasz Matuszewski:** eza
+- **11:28 — Łukasz Matuszewski:** eza (better ls / tree) + Nerd Fonts
 
 - **12:03 — Łukasz Matuszewski:** 12:07 - zadanie:  
   Poprawić pod jFTP plik AGENTS.md główny  
@@ -349,49 +352,8 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
 - **15:24 — Łukasz Matuszewski:** /goal implement the plan docs\plans\directory-assistant-local-chat-implementation-plan.md   
   Make sure that everything is consistent with the PRD and ADR documentation and that everything is in line with the workflow that we have described in the AGENTS.md file.
 
-- **15:26 — Łukasz Matuszewski:** https://jsystems-gitlab.polandcentral.cloudapp.azure.com
-
-- **15:27 — Łukasz Matuszewski:** uczestnik01 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]  
-  uczestnik02 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]
-
-- **15:27 — Łukasz Matuszewski:** uczestnik03 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]  
-  uczestnik04 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]
-
-- **15:27 — Łukasz Matuszewski:** uczestnik05 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]  
-  uczestnik06 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]
-
-- **15:27 — Łukasz Matuszewski:** uczestnik01 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]
-
-- **15:27 — Łukasz Matuszewski:** uczestnik02 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]
-
-- **15:27 — Łukasz Matuszewski:** uczestnik03 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]
-
-- **15:27 — Łukasz Matuszewski:** uczestnik04 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]
-
-- **15:28 — Łukasz Matuszewski:** uczestnik05 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]
-
-- **15:28 — Łukasz Matuszewski:** uczestnik06 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]
-
-- **15:28 — Łukasz Matuszewski:** uczestnik07 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]
-
-- **15:28 — Łukasz Matuszewski:** uczestnik08 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]
-
-- **15:28 — Łukasz Matuszewski:** uczestnik09 | hasło: [dane osobowe] | e-mail: [dane osobowe]  
-  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [dane osobowe]
+- **15:26 — Łukasz Matuszewski:**
+  glab auth login --hostname jsystems-gitlab.polandcentral.cloudapp.azure.com --token [PERSONAL ACCESS TOKEN]
 
 - **15:31 — Łukasz Matuszewski:** use glab cli and check current user data
 
@@ -410,7 +372,7 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
 - **15:59 — Łukasz Matuszewski:** PR Agent  
   https://github.com/The-PR-Agent/pr-agent
 
-- **16:00 — Łukasz Matuszewski:** codex exec "xxxx"
+- **16:00 — Łukasz Matuszewski:** codex exec "PROMPT"
 
 - **16:02 — Łukasz Matuszewski:** Examples are in the folder next to it. There's a whole repository training where you'll find all the information with examples.  
     
@@ -433,4 +395,4 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
 
 - **16:11 — Łukasz Matuszewski:** https://ankiety.jsystems.pl/
 
-- **16:21 — Łukasz Matuszewski:** https://www.jetbrains.com/help/idea/mcp-server.html
+- **16:21 — Łukasz Matuszewski:** MCP Jetbrains - dostęp do IntelliJ dla dowolnych agentów AI: https://www.jetbrains.com/help/idea/mcp-server.html
