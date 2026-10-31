@@ -115,7 +115,7 @@ Różnice w YAML względem wzoru:
 Na gałęzi od `master` (np. `git switch -c ci/w2-agents-check`) poproś lokalnego Codex:
 
 ```text
-Użyj $glab-course. Dodaj do .gitlab-ci.yml nowy job <nazwa> według wzoru z course-materials/exercises/gitlab-codex-exec-workflows.md w repozytorium kursu (..\kurs). Prompt zapisz w ci/prompts/<nazwa>.md. Job ma używać obrazu agent-ci:1, uruchamiać bash ci/agent-review/codex_run.sh i publikować wynik przez post_review_comment.sh. Nie zmieniaj istniejących jobów poza tym, czego wymaga wybrany workflow. Na koniec uruchom glab ci lint, pokaż diff i nie pushuj bez mojej zgody.
+Do pracy z GitLabem używaj glab; składnię sprawdzaj w `glab <polecenie> --help`. Dodaj do .gitlab-ci.yml nowy job <nazwa> według wzoru z course-materials/exercises/gitlab-codex-exec-workflows.md w repozytorium kursu (..\kurs). Prompt zapisz w ci/prompts/<nazwa>.md. Job ma używać obrazu agent-ci:1, uruchamiać bash ci/agent-review/codex_run.sh i publikować wynik przez post_review_comment.sh. Nie zmieniaj istniejących jobów poza tym, czego wymaga wybrany workflow. Na koniec uruchom glab ci lint, pokaż diff i nie pushuj bez mojej zgody.
 ```
 
 Po akceptacji diffu:
