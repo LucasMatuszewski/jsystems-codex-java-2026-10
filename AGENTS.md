@@ -6,7 +6,7 @@ This is the **participant materials repository** for "OpenAI Codex w codziennej 
 
 The agreed route is jFTP legacy discovery on day 1, Eclipse Cargo Tracker analysis and a read-only cargo-status feature on day 2, then review, GitLab merge requests, javax-to-jakarta migration and read-only Apache Fineract analysis on day 3. jFTP and Cargo Tracker are separate clones; never commit their sources here. Fineract is read-only. No chatbot or Spring AI service is required.
 
-The [course agenda](course-materials/course-agenda.md) preserves the offered program and records the agreed teaching route. The [materials hub](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/) provides the day pages. Exercise instructions are in course-materials/exercises/cargo-tracker.md, cargo-tracker-tickets.md and fineract-multi-agent.md; open them only for an explicitly requested exercise.
+The [materials hub](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/) lists the presentations in teaching order. Exercise instructions are in course-materials/exercises/cargo-tracker.md, cargo-tracker-tickets.md and fineract-multi-agent.md; open them only for an explicitly requested exercise.
 
 Chat in Polish unless the user requests another language. Application documentation uses English; participant instructions use Polish. The library is not an application specification. For application work, inspect the actual separate checkout, PRD, ADRs, build descriptors and commands. Never assume a runtime, framework or build tool from these examples.
 

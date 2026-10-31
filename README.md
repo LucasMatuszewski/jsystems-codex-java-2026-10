@@ -10,26 +10,23 @@
 
 **Materiały szkoleniowe: [devpowers.com/szkolenia/jsystems/codex-java-2026-10](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/)**
 
-- [Program i wszystkie materiały](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/agenda.html)
-- [Slajdy](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/agenda.html#prezentacje)
+- [Prezentacje i wszystkie materiały](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/#prezentacje)
 - [Biblioteka promptów](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/prompty.html) · [Ćwiczenia](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/cwiczenia.html) · [Checklisty](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/checklisty.html) · [Słownik AI](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/slownik-ai.html)
 - [Pytania i odpowiedzi](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/pytania.html)
-
-Aktualny [program szkolenia](course-materials/course-agenda.md).
 
 Repozytorium uczestnika szkolenia JSystems (28-30.10.2026, online, 09:00-16:00). W czasie szkolenia (3 dni) przechodzimy pełny cykl wytwarzania oprogramowania z agentami AI: od pomysłu i wymagań (PRD), przez decyzje architektoniczne (ADR), plan, implementację i testy, po code review, bezpieczeństwo i CI/CD.
 
 Głównym narzędziem jest **OpenAI Codex**: CLI na przygotowanej VM z Windows 11, w PowerShell oraz porównanie pracy w aplikacji ChatGPT w trybie Codex, IntelliJ IDEA i VS Code. Java jest kontekstem ćwiczeń, a nie osobnym kursem frameworków. Na VM używamy natywnego sandboxu Windows; WSL nie jest wymagany. [Sprawdź dostęp i narzędzia](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/preflight.html). Trener zapewnia konto ChatGPT Business; firmowe Enterprise pozostaje do codziennej pracy. Własne projekty, zgłoszenia, merge requesty i CI/CD prowadzimy na GitLab szkoleniowym (`jsystems-gitlab.polandcentral.cloudapp.azure.com`, GitLab 19.5) przez `glab`; [konfiguracja w ćwiczeniu Cargo Tracker](course-materials/exercises/cargo-tracker.md).
 
-## Trzy projekty, trzy dni
+## Projekty ćwiczeniowe
 
-1. **28.10, jFTP:** [pełny prompt legacy](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/prompty.html#P18-jftp-legacy), inwentaryzacja, AGENTS.md, kontekst i skills A/B. Klon aplikacji trzymamy osobno od materiałów.
-2. **29.10, Eclipse Cargo Tracker:** [analiza, status ładunku, PRD, ADR, TDD, UI i worktree](course-materials/exercises/cargo-tracker.md). Osobny klon aplikacji Jakarta EE, bez kopiowania jej kodu do tego repozytorium.
-3. **30.10, jakość i duży projekt:** [zgłoszenia i merge requesty](course-materials/exercises/cargo-tracker-tickets.md), migracja javax na jakarta oraz [Apache Fineract: analiza wielu agentów](course-materials/exercises/fineract-multi-agent.md). Fineract analizujemy tylko do odczytu, bez uruchamiania usług finansowych.
+1. **jFTP:** [pełny prompt legacy](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/prompty.html#P18-jftp-legacy), inwentaryzacja, AGENTS.md, kontekst i skills A/B. Klon aplikacji trzymamy osobno od materiałów.
+2. **Eclipse Cargo Tracker:** [analiza, status ładunku, PRD, ADR, TDD, UI i worktree](course-materials/exercises/cargo-tracker.md). Osobny klon aplikacji Jakarta EE, bez kopiowania jej kodu do tego repozytorium.
+3. **Jakość i duży projekt:** [zgłoszenia i merge requesty](course-materials/exercises/cargo-tracker-tickets.md), migracja javax na jakarta oraz [Apache Fineract: analiza wielu agentów](course-materials/exercises/fineract-multi-agent.md). Fineract analizujemy tylko do odczytu, bez uruchamiania usług finansowych.
 
-[Otwórz dzień 1](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/dzien-1.html) · [dzień 2](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/dzien-2.html) · [dzień 3](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/dzien-3.html).
+[Lista prezentacji](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/#prezentacje).
 
-Nie budujemy chatbota ani nowej usługi Spring AI. Dokumenty funkcji powstają podczas ćwiczeń w klonie Cargo Tracker, po analizie jego rzeczywistego kodu. [Program z oferty i uzgodniona trasa](course-materials/course-agenda.md) pokazują tę zmianę.
+Nie budujemy chatbota ani nowej usługi Spring AI. Dokumenty funkcji powstają podczas ćwiczeń w klonie Cargo Tracker, po analizie jego rzeczywistego kodu.
 
 ## Codex review w GitLab CI: przetestowana konfiguracja
 
