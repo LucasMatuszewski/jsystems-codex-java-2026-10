@@ -18,6 +18,18 @@ Repozytorium uczestnika szkolenia JSystems (28-30.10.2026, online, 09:00-16:00).
 
 Głównym narzędziem jest **OpenAI Codex**: CLI na przygotowanej VM z Windows 11, w PowerShell oraz porównanie pracy w aplikacji ChatGPT w trybie Codex, IntelliJ IDEA i VS Code. Java jest kontekstem ćwiczeń, a nie osobnym kursem frameworków. Na VM używamy natywnego sandboxu Windows; WSL nie jest wymagany. [Sprawdź dostęp i narzędzia](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/preflight.html). Trener zapewnia konto ChatGPT Business; firmowe Enterprise pozostaje do codziennej pracy. Własne projekty, zgłoszenia, merge requesty i CI/CD prowadzimy na GitLab szkoleniowym (`jsystems-gitlab.polandcentral.cloudapp.azure.com`, GitLab 19.5) przez `glab`; [konfiguracja w ćwiczeniu Cargo Tracker](course-materials/exercises/cargo-tracker.md).
 
+## Codex CLI na koncie szkoleniowym
+
+Na Windows otwórz PowerShell w tym repozytorium. Jeśli masz zainstalowany Codex CLI i możesz korzystać z niego na swoim komputerze, uruchom:
+
+```powershell
+.\codex-szkolenie.ps1
+```
+
+Przy pierwszym uruchomieniu wybierz logowanie przez ChatGPT i użyj konta szkoleniowego. Stan Codex trafi do `%LOCALAPPDATA%\JSystems\Codex-Java-2026-10` poza repozytorium. Tym samym skryptem możesz sprawdzić logowanie (`.\codex-szkolenie.ps1 login status`) lub wylogować konto szkoleniowe po zajęciach (`.\codex-szkolenie.ps1 logout`).
+
+Skrypt uruchamia Codex CLI. Wtyczki IDE uruchamiają własne procesy. Do ćwiczeń używaj repozytoriów szkoleniowych. Jeżeli firmowa polityka blokuje skrypt lub logowanie, skorzystaj z maszyny szkoleniowej.
+
 ## Projekty ćwiczeniowe
 
 1. **jFTP:** [pełny prompt legacy](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/prompty.html#P18-jftp-legacy), inwentaryzacja, AGENTS.md, kontekst i skills A/B. Klon aplikacji trzymamy osobno od materiałów.
