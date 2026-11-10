@@ -1,8 +1,10 @@
 # GitLab Self-Managed w ChatGPT i Codex
 
-Połącz własną instancję GitLaba z ChatGPT Business lub inną zarządzaną przestrzenią roboczą. Zacznij od projektu testowego, do którego masz dostęp w GitLabie. Potrzebujesz uprawnień administratora lub właściciela przestrzeni ChatGPT oraz uprawnień do rejestracji aplikacji OAuth w GitLabie.
+Jeśli administrator udostępnił już wtyczkę GitLab Self-Managed, przejdź od razu do [logowania na konto GitLab](#5-logowanie-na-konto-gitlab).
 
-W DevPowers potwierdziliśmy odczyt projektów w zwykłym czacie ChatGPT. Status podłączenia repozytorium do środowiska Codex Cloud opisuje krok 5.
+Kroki 1–4 są dla osób, które konfigurują aplikację dla swojej instancji GitLaba. Potrzebujesz uprawnień administratora lub właściciela przestrzeni ChatGPT oraz uprawnień do rejestracji aplikacji OAuth w GitLabie.
+
+W DevPowers potwierdziliśmy odczyt projektów w zwykłym czacie ChatGPT. Wynik próby podłączenia repozytorium do Codex Cloud opisuje [krok 6](#6-sprawdź-środowisko-projektu).
 
 - [Instrukcja OpenAI konfiguracji szablonu GitLab Self-Managed](https://help.openai.com/pl-pl/articles/20001487-setting-up-the-gitlab-self-managed-app-template-for-chatgpt-and-codex)
 - [Konfiguracja GitLaba i środowisk projektu w Codex Cloud](https://learn.chatgpt.com/docs/third-party/gitlab)
@@ -43,7 +45,7 @@ GitLab wyświetli potwierdzenie zapisu oraz **Application ID** i **Secret**. Sko
 
 ![Ekran po zapisaniu aplikacji OAuth z przyciskami kopiowania i potwierdzeniem trzech zakresów](gitlab-self-managed-codex-images/07-copy-gitlab-oauth-credentials.png)
 
-## 4. Opublikuj i połącz aplikację
+## 4. Opublikuj aplikację w przestrzeni roboczej
 
 Wróć do formularza ChatGPT. Wklej **Application ID** w pole **Identyfikator klienta OAuth**, a **Secret** w pole **Tajny klucz klienta OAuth**. Wprowadź sekret bezpośrednio w formularzu i kliknij **Utwórz wersję roboczą**.
 
@@ -65,7 +67,11 @@ Po publikacji sprawdź, czy aplikacja ma status **Enabled**, a pole **URL** wska
 
 ![Opublikowana aplikacja GitLab z własną nazwą, statusem Enabled i adresem API szkoleniowej instancji](gitlab-self-managed-codex-images/12-verify-published-gitlab-app.png)
 
-Na swoim koncie, w tej samej przestrzeni roboczej, otwórz **Settings → Plugins** i wybierz wtyczkę GitLab Self-Managed pod nazwą nadaną przez administratora. Przy ustawieniu **Installed** znajdziesz ją na liście zainstalowanych wtyczek. Przy ustawieniu **Available** możesz ją najpierw zainstalować przez **Browse directory**.
+## 5. Logowanie na konto GitLab
+
+Gdy administrator udostępni wtyczkę, połączysz własne konto GitLab bez uprawnień administratora. Na szkoleniu wybierz przestrzeń **DevPowers** w ChatGPT i przygotuj dane logowania do szkoleniowego GitLaba.
+
+W ustawieniach swojego konta otwórz **Settings → Plugins**. Na szkoleniu wybierz **GitLab Self-Managed DevPowers Azure**. W firmowej przestrzeni wybierz wtyczkę pod nazwą nadaną przez administratora. Przy ustawieniu **Installed** znajdziesz ją na liście zainstalowanych wtyczek. Przy ustawieniu **Available** możesz ją najpierw zainstalować przez **Browse directory**.
 
 ![Widok użytkownika z wtyczką GitLab Self-Managed na liście zainstalowanych wtyczek](gitlab-self-managed-codex-images/13-find-plugin-as-member.png)
 
@@ -93,7 +99,7 @@ Po powrocie do ChatGPT sprawdź, czy Twoje konto jest widoczne w sekcji **Connec
 
 ![Test odczytu listy projektów ze szkoleniowej instancji przez wtyczkę GitLab Self-Managed w zwykłym czacie ChatGPT](gitlab-self-managed-codex-images/19-list-projects-in-chat.png)
 
-## 5. Sprawdź środowisko projektu
+## 6. Sprawdź środowisko projektu
 
 Wróć do kreatora **Codex Cloud Environment** i sprawdź, czy w selektorze repozytoriów pojawia się projekt z Twojej instancji. Jeśli jest widoczny, wybierz go, skonfiguruj polecenie testowe projektu i uruchom zadanie, które odczyta plik z klonu oraz wykona test.
 
