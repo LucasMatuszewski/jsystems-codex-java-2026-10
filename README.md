@@ -1,5 +1,12 @@
 # OpenAI Codex w codziennej pracy programistycznej przy projektach Java (JSystems)
 
+## Aktualizacje po dogrywce · 10.11.2026
+
+- **[Czat Zoom z dogrywki](course-materials/zoom-summary-chat-history/day-4-chat-history.md)** — historia publicznego czatu z linkami m.in. do Codex Cloud, zdalnych połączeń, Dev Containers, Tailscale i narzędzi do zarządzania agentami.
+- **[Ćwiczenie: od merge requesta do testu regresji](course-materials/exercises/gitlab-review-warsztat.md)** — odczytaj komentarze PR-Agent i Codex CLI przez `glab`, a potem użyj lokalnego Codexa i `$respond-to-code-review`, żeby sprawdzić uwagę obu agentów w kodzie i teście. Na szkoleniowym GitLabie uruchom [tymczasową sesję PowerShell](glab-szkolenie.ps1) poleceniem `.\glab-szkolenie.ps1`.
+- **[PR-Agent i Codex CLI na własnym GitLabie](course-materials/cicd-headless/gitlab-review-jobs.md)** — instrukcja konfiguracji runnera i zmiennych CI/CD, [gotowy YAML z dwoma jobami](course-materials/cicd-headless/gitlab-review-jobs.yml) oraz scenariusz testowego MR. Z dogrywki: [wspólny merge request](https://gitlab-devpowers.polandcentral.cloudapp.azure.com/lucas/dogrywka-jftp/-/merge_requests/1), [log PR-Agent](https://gitlab-devpowers.polandcentral.cloudapp.azure.com/lucas/dogrywka-jftp/-/jobs/54) i [log Codex CLI](https://gitlab-devpowers.polandcentral.cloudapp.azure.com/lucas/dogrywka-jftp/-/jobs/55). Te trzy linki wymagają uruchomionego serwera szkoleniowego i dostępu do projektu.
+- **[Osobne konto Codex CLI](#codex-cli-na-koncie-szkoleniowym)** — instrukcja logowania i oddzielnego profilu. Skrypty są w katalogu głównym: [PowerShell](codex-szkolenie.ps1) i [Bash](codex-szkolenie.sh).
+
 ## Aktualizacje - 30.10.2026
 
 - **Działający przykład Codex w GitLab CI.** Obraz [`agent-ci:1`](course-materials/cicd-headless/agent-review/Dockerfile) ma teraz Codex CLI 0.165.0, a GitLab szkoleniowy wersję 19.5.3. Job `codex-review` z [pipeline Cargo Tracker](course-materials/cicd-headless/gitlab-cargo-tracker/.gitlab-ci.yml) przeszedł test end to end: build i testy na runnerze, review przez OpenRouter (`openai/gpt-6-luna`) i komentarz w merge requeście.
