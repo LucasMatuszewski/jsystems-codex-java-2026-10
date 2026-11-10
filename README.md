@@ -20,15 +20,33 @@ Głównym narzędziem jest **OpenAI Codex**: CLI na przygotowanej VM z Windows 1
 
 ## Codex CLI na koncie szkoleniowym
 
-Na Windows otwórz PowerShell w tym repozytorium. Jeśli masz zainstalowany Codex CLI i możesz korzystać z niego na swoim komputerze, uruchom:
+Na Windows otwórz PowerShell. Potrzebujesz Git i Codex CLI oraz zgody na korzystanie z nich na swoim komputerze.
+
+1. Pobierz repozytorium. Jeśli masz je już lokalnie, wejdź do niego i wykonaj `git pull`.
 
 ```powershell
+git clone https://github.com/LucasMatuszewski/jsystems-codex-java-2026-10.git
+cd jsystems-codex-java-2026-10
+```
+
+2. W osobnym profilu przeglądarki zaloguj się na swoje konto szkoleniowe ChatGPT. W PowerShellu uruchom logowanie:
+
+```powershell
+.\codex-szkolenie.ps1 login
+```
+
+Sprawdź adres konta na stronie autoryzacji i wybierz workspace szkoleniowy. Gdy przekierowanie do lokalnego terminala jest zablokowane, użyj `.\codex-szkolenie.ps1 login --device-auth`, jeśli workspace dopuszcza logowanie kodem urządzenia.
+
+3. Sprawdź konto i uruchom Codex:
+
+```powershell
+.\codex-szkolenie.ps1 login status
 .\codex-szkolenie.ps1
 ```
 
-Przy pierwszym uruchomieniu wybierz logowanie przez ChatGPT i użyj konta szkoleniowego. Stan Codex trafi do `%LOCALAPPDATA%\JSystems\Codex-Java-2026-10` poza repozytorium. Tym samym skryptem możesz sprawdzić logowanie (`.\codex-szkolenie.ps1 login status`) lub wylogować konto szkoleniowe po zajęciach (`.\codex-szkolenie.ps1 logout`).
+Stan Codex trafi do `%LOCALAPPDATA%\JSystems\Codex-Java-2026-10` poza repozytorium. Skrypt ustawia osobne `CODEX_HOME` i `CODEX_SQLITE_HOME` na czas uruchomienia, po czym przywraca wcześniejsze zmienne PowerShella. Konto szkoleniowe wylogujesz poleceniem `.\codex-szkolenie.ps1 logout`.
 
-Skrypt uruchamia Codex CLI. Wtyczki IDE uruchamiają własne procesy. Do ćwiczeń używaj repozytoriów szkoleniowych. Jeżeli firmowa polityka blokuje skrypt lub logowanie, skorzystaj z maszyny szkoleniowej.
+Izolacja obejmuje logowanie, konfigurację i lokalny stan Codex CLI. Dostęp do plików zależy od uprawnień Windows i sandboxu Codex. Do ćwiczeń używaj repozytoriów szkoleniowych. Wtyczki IDE uruchamiają własne procesy. Jeżeli firmowa polityka blokuje skrypt lub logowanie, skorzystaj z maszyny szkoleniowej.
 
 ## Projekty ćwiczeniowe
 
