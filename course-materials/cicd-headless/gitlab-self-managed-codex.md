@@ -111,7 +111,15 @@ Po wybraniu połączenia na liście pojawiły się repozytoria ze szkoleniowej i
 
 ![Repozytoria szkoleniowego GitLaba po wybraniu połączenia Self-Managed w Code Review](gitlab-self-managed-codex-images/22-self-managed-repositories-in-code-review.png)
 
-W DevPowers sprawdziliśmy wybór połączenia i listę repozytoriów. Publikacja review na merge requeście wymaga jeszcze konta serwisowego z dostępem do projektu i aktywności projektu lub grupy skonfigurowanej przez podpisany webhook. Ta integracja wymaga GitLaba 19.0 lub nowszego. Po konfiguracji możesz sprawdzić działanie, wpisując `@codex review` w komentarzu do testowego merge requesta i czekając na odpowiedź Codexa. [Konfiguracja i wymagania Codex Code Review](https://learn.chatgpt.com/docs/third-party/gitlab)
+W ustawieniach wybranego repozytorium włącz **Automatic review**. Ustaw **Review**, aby wybrać, czyje merge requesty ma sprawdzać Codex, oraz **Trigger**, aby wybrać zdarzenie uruchamiające review. Opcja **Follow personal preferences** pozostawia decyzję ustawieniom użytkownika.
+
+![Ustawienia automatycznego review w repozytorium dogrywka-jftp z zaznaczonymi opcjami Review i Trigger](gitlab-self-managed-codex-images/23-configure-repository-code-review.png)
+
+Jeśli review się nie uruchamia, sprawdź pole **Review** w ustawieniach repozytorium. Ustaw wprost **Team PRs** lub **All PRs**, zależnie od tego, czyje merge requesty chcesz sprawdzać. W naszych próbach opcja **Follow personal preferences** nie zawsze dawała oczekiwany wynik. W przykładzie dla `dogrywka-jftp` wybraliśmy **Team PRs**.
+
+![Wybór Team PRs w ustawieniach review repozytorium dogrywka-jftp](gitlab-self-managed-codex-images/24-choose-review-scope.png)
+
+W DevPowers sprawdziliśmy wybór połączenia, listę repozytoriów i ustawienia review dla projektu. Publikacja review na merge requeście wymaga jeszcze konta serwisowego z dostępem do projektu oraz podpisanego webhooka projektu lub grupy. Konto serwisowe skonfigurujesz w **Codex Cloud → Settings → Connectors**. Ta integracja wymaga GitLaba 19.0 lub nowszego. Po konfiguracji możesz sprawdzić działanie, wpisując `@codex review` w komentarzu do testowego merge requesta i czekając na odpowiedź Codexa. [Ustawienia konektorów](https://chatgpt.com/codex/cloud/settings/connectors) · [Konfiguracja i wymagania Codex Code Review](https://learn.chatgpt.com/docs/third-party/gitlab)
 
 ## 7. Repozytoria GitLab w Codex Cloud
 
