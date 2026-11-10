@@ -56,6 +56,16 @@ Launcher PowerShell preferuje sandbox MXC na zgodnych urządzeniach i ustawia `e
 
 Jeśli zobaczysz `windows unelevated restricted-token sandbox cannot enforce deny-read restrictions`, pobierz aktualny launcher przez `git pull` i uruchom go ponownie. To ograniczenie sandboxu `unelevated`. Skonfiguruj MXC lub `elevated` zgodnie z polityką urządzenia. [Oficjalna instrukcja Windows](https://learn.chatgpt.com/docs/windows/windows-sandbox)
 
+Jeśli proces pomocniczy MXC zgłasza brak `SYSTEMROOT` podczas wczytywania `AGENTS.md`, sprawdź wersję CLI. Poprawka przekazywania `SystemRoot` jest w Codex CLI od wersji `0.165.0`. Zaktualizuj CLI używany przez PowerShell i uruchom launcher ponownie.
+
+```powershell
+codex update
+codex --version
+.\codex-szkolenie.ps1
+```
+
+Na komputerze zarządzanym przez firmę użyj wersji zatwierdzonej przez IT. [Aktualizowanie Codex CLI](https://learn.chatgpt.com/docs/cli/reference#codex-update)
+
 ### Linux (Bash)
 
 W terminalu Bash wejdź do tego repozytorium. Użyj osobnego profilu przeglądarki z kontem szkoleniowym, tak jak w instrukcji powyżej.
