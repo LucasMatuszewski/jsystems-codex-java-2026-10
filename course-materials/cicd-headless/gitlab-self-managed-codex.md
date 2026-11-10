@@ -131,7 +131,9 @@ Projekt `dogrywka-jftp` nie miał webhooka, a komentarz testowy `@codex review` 
 
 W sprawdzonym przez nas kreatorze środowisk Codex Cloud opcja **GitLab** pokazuje wyłącznie repozytoria z **GitLab.com**. Repozytoriów ze szkoleniowego GitLab Self-Managed nie da się wybrać w tym selektorze.
 
-Sprawdziliśmy **Create environment** i **Manage connections** przy edycji istniejącego środowiska.
+W nowym widoku sprawdziliśmy **Create environment** oraz **Manage connections** przy edycji istniejącego środowiska. Bezpośredni adres ustawień Legacy nadal się otwiera, ale **Create Environment** prowadzi stamtąd do tego samego selektora repozytoriów. [Nowe ustawienia środowisk](https://chatgpt.com/settings/cloud-environments) · [Ustawienia Legacy](https://chatgpt.com/codex/settings/environments)
+
+OpenAI osobno opisuje oba widoki. [Dokumentacja nowych środowisk](https://learn.chatgpt.com/docs/environments/cloud-environments) · [Dokumentacja Codex Cloud (Legacy)](https://learn.chatgpt.com/docs/environments/cloud-environment)
 
 ![Kreator środowiska Codex Cloud pokazuje połączenia GitHub i GitLab bez osobnej pozycji dla szkoleniowej instancji](gitlab-self-managed-codex-images/20-check-cloud-repository-selector.png)
 
