@@ -6,7 +6,11 @@ Sprawdzisz jedną zmianę w jFTP, porównasz uwagi PR-Agent i Codex CLI, a nast�
 
 https://gitlab-devpowers.polandcentral.cloudapp.azure.com
 
-Użyj swojego konta szkoleniowego i otwórz merge request podany przez trenera. Do ćwiczenia używamy kodu jFTP i danych syntetycznych.
+Użyj swojego konta szkoleniowego. Otwórz wspólny merge request.
+
+https://gitlab-devpowers.polandcentral.cloudapp.azure.com/lucas/dogrywka-jftp/-/merge_requests/1
+
+Do ćwiczenia używamy kodu jFTP i danych syntetycznych.
 
 ## Sprawdź zmianę
 
@@ -40,21 +44,60 @@ Jeśli nie potrafisz potwierdzić problemu w kodzie, zaznacz to.
 Pracuj w trybie odczytu. Odróżnij testy uruchomione od proponowanych.
 ```
 
-## Opcjonalnie odczytaj MR w glab
+## glab na koncie szkoleniowym w PowerShellu
 
-Na szkoleniowym GitLabie utwórz osobisty token z zakresem `read_api` i datą ważności do następnego dnia. W osobnym oknie PowerShella otwartym poza firmowym repozytorium uruchom:
+### 1. Pobierz materiały z GitHuba
+
+Otwórz PowerShell. Potrzebujesz zainstalowanych Git i `glab`.
 
 ```powershell
-$env:GLAB_CONFIG_DIR = Join-Path $env:TEMP ("glab-szkolenie-" + [guid]::NewGuid())
-$env:GITLAB_HOST = 'gitlab-devpowers.polandcentral.cloudapp.azure.com'
-$env:GITLAB_API_HOST = $env:GITLAB_HOST
-$env:GLAB_API_PROTOCOL = 'https'
-Remove-Item Env:GITLAB_REPO, Env:GITLAB_SUBFOLDER -ErrorAction SilentlyContinue
-$env:GITLAB_TOKEN = [Net.NetworkCredential]::new('', (Read-Host 'Token szkoleniowy' -AsSecureString)).Password
-glab api user --hostname $env:GITLAB_HOST | ConvertFrom-Json | Select-Object -ExpandProperty username
-$repoUrl = Read-Host 'Adres projektu GitLab'
-$mrId = Read-Host 'Numer merge requesta bez wykrzyknika'
-glab mr view $mrId --repo $repoUrl
+git clone https://github.com/LucasMatuszewski/jsystems-codex-java-2026-10.git
+cd jsystems-codex-java-2026-10
 ```
 
-Token wpisz w ukrytym polu PowerShella. Po ćwiczeniu zamknij okno i unieważnij token w GitLabie. Codex uruchamiaj w oddzielnym terminalu. [Osobne konto Codex CLI](../../README.md#codex-cli-na-koncie-szkoleniowym)
+Jeśli masz już to repozytorium, wejdź do jego katalogu i wykonaj `git pull`. Zawiera ono instrukcje oraz launchery.
+
+### 2. Uruchom gotowy plik
+
+```powershell
+.\glab-szkolenie.ps1
+```
+
+Plik jest już w repozytorium, obok `codex-szkolenie.ps1`. Wszystkie adresy i projekt są wpisane. W ukrytym polu wklej wyłącznie swój token szkoleniowego GitLaba otrzymany od trenera. Jeżeli tworzysz nowy token samodzielnie, do odczytu MR wystarczy zakres `read_api`.
+
+Skrypt sprawdzi konto i otworzy tymczasową sesję PowerShell w tym samym oknie terminala. Zobaczysz nazwę swojego konta oraz polecenia do ćwiczenia. Ta sesja ma osobną konfigurację `glab` i projekt `lucas/dogrywka-jftp` ustawiony jako domyślny.
+
+### 3. Odczytaj wspólny MR
+
+W nowo otwartej sesji wpisuj osobno:
+
+```powershell
+glab mr view 1
+glab mr diff 1
+```
+
+Do tych poleceń wystarcza API GitLaba. Klon aplikacji jFTP jest potrzebny dopiero do lokalnej edycji i uruchamiania jej testów.
+
+### 4. Jeśli chcesz edytować jFTP lokalnie, sklonuj aplikację z GitLaba
+
+W tej sesji przejdź poziom wyżej, żeby klon aplikacji znalazł się obok repozytorium materiałów:
+
+```powershell
+cd ..
+git -c credential.helper= -c "credential.helper=!glab auth git-credential" clone --branch warsztat/port-ftp https://gitlab-devpowers.polandcentral.cloudapp.azure.com/lucas/dogrywka-jftp.git
+cd dogrywka-jftp
+```
+
+Git pobierze token z tymczasowej sesji przez `glab`. Do klonowania token potrzebuje zakresu `read_repository` lub szerszego `api`. Tokeny rozdane przez trenera obejmują odczyt repozytorium. Obie opcje `-c` dotyczą tego jednego klonowania.
+
+Nad wspólnym MR pracujemy z jednym kierowcą. Swoje propozycje zgłaszaj w dyskusji MR. Uprawnienie Reporter pozwala czytać kod i wyniki CI.
+
+### 5. Zakończ sesję
+
+```powershell
+exit
+```
+
+Wrócisz do wcześniejszego PowerShella. Skrypt przywróci jego zmienne środowiskowe i usunie tymczasowy katalog konfiguracji. Ważność samego tokenu kontrolujesz w GitLabie.
+
+Codex uruchamiaj w oddzielnym terminalu przez [launcher konta szkoleniowego](../../README.md#codex-cli-na-koncie-szkoleniowym).

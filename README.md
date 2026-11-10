@@ -67,6 +67,8 @@ Launcher zapisuje stan w `${XDG_DATA_HOME:-$HOME/.local/share}/JSystems/Codex-Ja
 
 **GitLab i review w CI** — [od merge requesta do testu regresji](course-materials/exercises/gitlab-review-warsztat.md).
 
+W PowerShellu uruchom `.\glab-szkolenie.ps1` i podaj swój token szkoleniowego GitLaba. Skrypt otworzy tymczasową sesję z gotowym projektem. [Pełna instrukcja glab i klonowania jFTP](course-materials/exercises/gitlab-review-warsztat.md#glab-na-koncie-szkoleniowym-w-powershellu).
+
 1. **jFTP:** [pełny prompt legacy](https://devpowers.com/szkolenia/jsystems/codex-java-2026-10/prompty.html#P18-jftp-legacy), inwentaryzacja, AGENTS.md, kontekst i skills A/B. Klon aplikacji trzymamy osobno od materiałów.
 2. **Eclipse Cargo Tracker:** [analiza, status ładunku, PRD, ADR, TDD, UI i worktree](course-materials/exercises/cargo-tracker.md). Osobny klon aplikacji Jakarta EE, bez kopiowania jej kodu do tego repozytorium.
 3. **Jakość i duży projekt:** [zgłoszenia i merge requesty](course-materials/exercises/cargo-tracker-tickets.md), migracja javax na jakarta oraz [Apache Fineract: analiza wielu agentów](course-materials/exercises/fineract-multi-agent.md). Fineract analizujemy tylko do odczytu, bez uruchamiania usług finansowych.
