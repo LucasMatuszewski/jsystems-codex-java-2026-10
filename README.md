@@ -48,6 +48,8 @@ Stan Codex trafi do `%LOCALAPPDATA%\JSystems\Codex-Java-2026-10` poza repozytori
 
 Izolacja obejmuje logowanie, konfigurację i lokalny stan Codex CLI. Dostęp do plików zależy od uprawnień Windows i sandboxu Codex. Do ćwiczeń używaj repozytoriów szkoleniowych. Wtyczki IDE uruchamiają własne procesy. Jeżeli firmowa polityka blokuje skrypt lub logowanie, skorzystaj z maszyny szkoleniowej.
 
+Launchery pomijają odziedziczone zmienne `CODEX_ACCESS_TOKEN`, `CODEX_API_KEY`, `OPENAI_API_KEY` i `OPENAI_FEDERATION_RULE_ID` na czas uruchomienia szkoleniowego Codex. PowerShell przywraca wcześniejsze wartości po zakończeniu procesu.
+
 ### Linux (Bash)
 
 W terminalu Bash wejdź do tego repozytorium. Użyj osobnego profilu przeglądarki z kontem szkoleniowym, tak jak w instrukcji powyżej.
