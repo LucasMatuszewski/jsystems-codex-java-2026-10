@@ -4,7 +4,7 @@ Jeśli administrator udostępnił już wtyczkę GitLab Self-Managed, przejdź od
 
 Kroki 1–4 są dla osób, które konfigurują aplikację dla swojej instancji GitLaba. Potrzebujesz uprawnień administratora lub właściciela przestrzeni ChatGPT oraz uprawnień do rejestracji aplikacji OAuth w GitLabie.
 
-W DevPowers potwierdziliśmy odczyt projektów w zwykłym czacie ChatGPT. Wynik próby podłączenia repozytorium do Codex Cloud opisuje [krok 6](#6-sprawdź-środowisko-projektu).
+W DevPowers potwierdziliśmy odczyt projektów w zwykłym czacie ChatGPT. Wynik testu selektora repozytoriów w Codex Cloud opisuje [punkt 6](#6-repozytoria-gitlab-w-codex-cloud).
 
 - [Instrukcja OpenAI konfiguracji szablonu GitLab Self-Managed](https://help.openai.com/pl-pl/articles/20001487-setting-up-the-gitlab-self-managed-app-template-for-chatgpt-and-codex)
 - [Konfiguracja GitLaba i środowisk projektu w Codex Cloud](https://learn.chatgpt.com/docs/third-party/gitlab)
@@ -99,12 +99,12 @@ Po powrocie do ChatGPT sprawdź, czy Twoje konto jest widoczne w sekcji **Connec
 
 ![Test odczytu listy projektów ze szkoleniowej instancji przez wtyczkę GitLab Self-Managed w zwykłym czacie ChatGPT](gitlab-self-managed-codex-images/19-list-projects-in-chat.png)
 
-## 6. Sprawdź środowisko projektu
+## 6. Repozytoria GitLab w Codex Cloud
 
-Wróć do kreatora **Codex Cloud Environment** i sprawdź, czy w selektorze repozytoriów pojawia się projekt z Twojej instancji. Jeśli jest widoczny, wybierz go, skonfiguruj polecenie testowe projektu i uruchom zadanie, które odczyta plik z klonu oraz wykona test.
+W sprawdzonym przez nas kreatorze środowisk Codex Cloud opcja **GitLab** pokazuje wyłącznie repozytoria z **GitLab.com**. Repozytoriów ze szkoleniowego GitLab Self-Managed nie da się wybrać w tym selektorze.
 
-W DevPowers sprawdziliśmy kreator **Create environment** i edycję istniejącego środowiska. Selektor połączeń pokazuje ogólną pozycję **GitLab**, także w **Manage connections**. Obie ścieżki przekierowały do GitLab.com. Po autoryzacji selektor pokazał repozytoria z GitLab.com. Repozytoria ze szkoleniowego hosta nie pojawiły się w tym widoku.
+Sprawdziliśmy obie ścieżki: **Create environment** oraz **Manage connections** przy edycji istniejącego środowiska.
 
 ![Kreator środowiska Codex Cloud pokazuje połączenia GitHub i GitLab bez osobnej pozycji dla szkoleniowej instancji](gitlab-self-managed-codex-images/20-check-cloud-repository-selector.png)
 
-OpenAI opisuje osobną ścieżkę dla GitLab Self-Managed w **Codex Cloud → Settings → Connectors**, gdzie administrator wybiera aplikację dla własnego hosta i może skonfigurować konto serwisowe do obsługi aktywności z GitLaba. Tę ścieżkę trzeba jeszcze sprawdzić w DevPowers. Odczyt przez wtyczkę w czacie i wykonanie zadania na klonie w środowisku to dwa osobne testy. [Konfiguracja połączenia i konta serwisowego](https://learn.chatgpt.com/docs/third-party/gitlab#set-up-the-gitlab-connection-and-codex-review-identity)
+Do pracy ze szkoleniowym GitLabem użyj wtyczki w zwykłym czacie ChatGPT zgodnie z [punktem 5](#5-logowanie-na-konto-gitlab).
