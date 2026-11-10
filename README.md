@@ -50,6 +50,12 @@ Izolacja obejmuje logowanie, konfigurację i lokalny stan Codex CLI. Dostęp do 
 
 Launchery pomijają odziedziczone zmienne `CODEX_ACCESS_TOKEN`, `CODEX_API_KEY`, `OPENAI_API_KEY` i `OPENAI_FEDERATION_RULE_ID` na czas uruchomienia szkoleniowego Codex. PowerShell przywraca wcześniejsze wartości po zakończeniu procesu.
 
+### Sandbox Windows
+
+Launcher PowerShell preferuje sandbox MXC na zgodnych urządzeniach i ustawia `elevated` jako fallback. Pierwsza konfiguracja `elevated` wymaga zatwierdzenia przez administratora. Firmową konfigurację uzgodnij z IT.
+
+Jeśli zobaczysz `windows unelevated restricted-token sandbox cannot enforce deny-read restrictions`, pobierz aktualny launcher przez `git pull` i uruchom go ponownie. To ograniczenie sandboxu `unelevated`. Skonfiguruj MXC lub `elevated` zgodnie z polityką urządzenia. [Oficjalna instrukcja Windows](https://learn.chatgpt.com/docs/windows/windows-sandbox)
+
 ### Linux (Bash)
 
 W terminalu Bash wejdź do tego repozytorium. Użyj osobnego profilu przeglądarki z kontem szkoleniowym, tak jak w instrukcji powyżej.

@@ -15,7 +15,7 @@ try {
     }
     $env:CODEX_HOME = $courseHome
     $env:CODEX_SQLITE_HOME = $courseHome
-    & codex --no-daemon --cd $PSScriptRoot @args
+    & codex --no-daemon -c features.prefer_mxc=true -c windows.sandbox=elevated --cd $PSScriptRoot @args
 }
 finally {
     foreach ($name in $previous.Keys) {
