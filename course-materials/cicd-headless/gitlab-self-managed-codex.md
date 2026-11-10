@@ -4,7 +4,7 @@ Jeśli administrator udostępnił już wtyczkę GitLab Self-Managed, przejdź od
 
 Kroki 1–4 są dla osób, które konfigurują aplikację dla swojej instancji GitLaba. Potrzebujesz uprawnień administratora lub właściciela przestrzeni ChatGPT oraz uprawnień do rejestracji aplikacji OAuth w GitLabie.
 
-W DevPowers potwierdziliśmy odczyt projektów w zwykłym czacie ChatGPT. Wynik testu selektora repozytoriów w Codex Cloud opisuje [punkt 6](#6-repozytoria-gitlab-w-codex-cloud).
+W DevPowers potwierdziliśmy odczyt projektów w zwykłym czacie ChatGPT. Repozytoria ze szkoleniowej instancji pojawiły się też w [ustawieniach Code Review](#6-gitlab-self-managed-w-ustawieniach-code-review). Wynik testu selektora repozytoriów w kreatorze środowisk Codex Cloud opisuje [punkt 7](#7-repozytoria-gitlab-w-codex-cloud).
 
 - [Instrukcja OpenAI konfiguracji szablonu GitLab Self-Managed](https://help.openai.com/pl-pl/articles/20001487-setting-up-the-gitlab-self-managed-app-template-for-chatgpt-and-codex)
 - [Konfiguracja GitLaba i środowisk projektu w Codex Cloud](https://learn.chatgpt.com/docs/third-party/gitlab)
@@ -99,11 +99,25 @@ Po powrocie do ChatGPT sprawdź, czy Twoje konto jest widoczne w sekcji **Connec
 
 ![Test odczytu listy projektów ze szkoleniowej instancji przez wtyczkę GitLab Self-Managed w zwykłym czacie ChatGPT](gitlab-self-managed-codex-images/19-list-projects-in-chat.png)
 
-## 6. Repozytoria GitLab w Codex Cloud
+## 6. GitLab Self-Managed w ustawieniach Code Review
+
+W ustawieniach **Code Review** w DevPowers można wybrać repozytoria ze szkoleniowego GitLab Self-Managed i otworzyć ich ustawienia automatycznego review.
+
+Otwórz **Settings → Code Review**. W sekcji **Repositories** wybierz dostawcę **GitLab**, a następnie z listy **GitLab connection** wybierz **GitLab Self-Managed DevPowers Azure**. [Ustawienia Code Review dla GitLaba](https://chatgpt.com/settings/code-review?provider=gitlab)
+
+![Wybór połączenia GitLab Self-Managed DevPowers Azure w ustawieniach Code Review](gitlab-self-managed-codex-images/21-select-gitlab-self-managed-in-code-review.png)
+
+Po wybraniu połączenia na liście pojawiły się repozytoria ze szkoleniowej instancji, w tym `codex-java/kurs`. Kliknij wybrane repozytorium, aby otworzyć jego ustawienia review.
+
+![Repozytoria szkoleniowego GitLaba po wybraniu połączenia Self-Managed w Code Review](gitlab-self-managed-codex-images/22-self-managed-repositories-in-code-review.png)
+
+W DevPowers sprawdziliśmy wybór połączenia i listę repozytoriów. Publikacja review na merge requeście wymaga jeszcze konta serwisowego z dostępem do projektu i aktywności projektu lub grupy skonfigurowanej przez podpisany webhook. Ta integracja wymaga GitLaba 19.0 lub nowszego. Po konfiguracji możesz sprawdzić działanie, wpisując `@codex review` w komentarzu do testowego merge requesta i czekając na odpowiedź Codexa. [Konfiguracja i wymagania Codex Code Review](https://learn.chatgpt.com/docs/third-party/gitlab)
+
+## 7. Repozytoria GitLab w Codex Cloud
 
 W sprawdzonym przez nas kreatorze środowisk Codex Cloud opcja **GitLab** pokazuje wyłącznie repozytoria z **GitLab.com**. Repozytoriów ze szkoleniowego GitLab Self-Managed nie da się wybrać w tym selektorze.
 
-Sprawdziliśmy obie ścieżki: **Create environment** oraz **Manage connections** przy edycji istniejącego środowiska.
+Sprawdziliśmy **Create environment** i **Manage connections** przy edycji istniejącego środowiska.
 
 ![Kreator środowiska Codex Cloud pokazuje połączenia GitHub i GitLab bez osobnej pozycji dla szkoleniowej instancji](gitlab-self-managed-codex-images/20-check-cloud-repository-selector.png)
 
