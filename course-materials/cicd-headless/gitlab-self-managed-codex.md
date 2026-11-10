@@ -119,7 +119,13 @@ Jeśli review się nie uruchamia, sprawdź pole **Review** w ustawieniach repozy
 
 ![Wybór Team PRs w ustawieniach review repozytorium dogrywka-jftp](gitlab-self-managed-codex-images/24-choose-review-scope.png)
 
-W DevPowers sprawdziliśmy wybór połączenia, listę repozytoriów i ustawienia review dla projektu. Publikacja review na merge requeście wymaga jeszcze konta serwisowego z dostępem do projektu oraz podpisanego webhooka projektu lub grupy. Konto serwisowe skonfigurujesz w **Codex Cloud → Settings → Connectors**. Ta integracja wymaga GitLaba 19.0 lub nowszego. Po konfiguracji możesz sprawdzić działanie, wpisując `@codex review` w komentarzu do testowego merge requesta i czekając na odpowiedź Codexa. [Ustawienia konektorów](https://chatgpt.com/codex/cloud/settings/connectors) · [Konfiguracja i wymagania Codex Code Review](https://learn.chatgpt.com/docs/third-party/gitlab)
+Publikacja review na merge requeście wymaga konta serwisowego z dostępem do projektu oraz podpisanego webhooka projektu lub grupy. OpenAI opisuje konfigurację konta serwisowego w **Codex Cloud → Settings → Connectors**. Ta integracja wymaga GitLaba 19.0 lub nowszego. Po konfiguracji uruchom test komentarzem `@codex review` w testowym merge requeście. [Ustawienia konektorów](https://chatgpt.com/codex/cloud/settings/connectors) · [Konfiguracja i wymagania Codex Code Review](https://learn.chatgpt.com/docs/third-party/gitlab)
+
+W naszej próbie repozytoria Self-Managed były widoczne w **Code Review**, a panel **Connectors** pokazywał połączenie z GitLab.com. Na liście w tym panelu brakowało połączenia DevPowers Self-Managed, więc nie udało się skonfigurować konta serwisowego opisaną ścieżką.
+
+![Panel Codex connections z połączeniami GitHub i GitLab.com, bez pozycji dla szkoleniowej instancji Self-Managed](gitlab-self-managed-codex-images/25-check-codex-connections.png)
+
+Projekt `dogrywka-jftp` nie miał webhooka, a komentarz testowy `@codex review` pozostał bez reakcji. W tej próbie potwierdziliśmy widoczność ustawień review w ChatGPT. Publikacja review w GitLabie pozostaje niepotwierdzona. [Komentarz testowy w GitLabie](https://gitlab-devpowers.polandcentral.cloudapp.azure.com/lucas/dogrywka-jftp/-/merge_requests/1#note_24)
 
 ## 7. Repozytoria GitLab w Codex Cloud
 
