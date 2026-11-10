@@ -131,10 +131,12 @@ Projekt `dogrywka-jftp` nie miał webhooka, a komentarz testowy `@codex review` 
 
 W sprawdzonym przez nas kreatorze środowisk Codex Cloud opcja **GitLab** pokazuje wyłącznie repozytoria z **GitLab.com**. Repozytoriów ze szkoleniowego GitLab Self-Managed nie da się wybrać w tym selektorze.
 
-W nowym widoku sprawdziliśmy **Create environment** oraz **Manage connections** przy edycji istniejącego środowiska. Bezpośredni adres ustawień Legacy nadal się otwiera, ale **Create Environment** prowadzi stamtąd do tego samego selektora repozytoriów. [Nowe ustawienia środowisk](https://chatgpt.com/settings/cloud-environments) · [Ustawienia Legacy](https://chatgpt.com/codex/settings/environments)
-
-OpenAI osobno opisuje oba widoki. [Dokumentacja nowych środowisk](https://learn.chatgpt.com/docs/environments/cloud-environments) · [Dokumentacja Codex Cloud (Legacy)](https://learn.chatgpt.com/docs/environments/cloud-environment)
+Nowy widok otworzysz przez **Settings → Codex Cloud → Environments**. Sprawdziliśmy w nim **Create environment** oraz **Manage connections** przy edycji istniejącego środowiska. [Dokumentacja nowych środowisk](https://learn.chatgpt.com/docs/environments/cloud-environments)
 
 ![Kreator środowiska Codex Cloud pokazuje połączenia GitHub i GitLab bez osobnej pozycji dla szkoleniowej instancji](gitlab-self-managed-codex-images/20-check-cloud-repository-selector.png)
+
+Menu po lewej pokazuje nowy **Codex Cloud**. Starszy widok **Legacy Codex Cloud** nadal otwiera się pod bezpośrednim adresem. W DevPowers przycisk **Create environment** w Legacy również otworzył selektor z repozytoriami wyłącznie z GitLab.com. [Otwórz Legacy Codex Cloud](https://chatgpt.com/settings/cloud-environments) · [Dokumentacja Legacy](https://learn.chatgpt.com/docs/environments/cloud-environment)
+
+![Widok Legacy Codex Cloud otwarty z bezpośredniego adresu, z odnośnikiem do nowych środowisk](gitlab-self-managed-codex-images/26-open-legacy-codex-cloud.png)
 
 Do pracy ze szkoleniowym GitLabem użyj wtyczki w zwykłym czacie ChatGPT zgodnie z [punktem 5](#5-logowanie-na-konto-gitlab).
