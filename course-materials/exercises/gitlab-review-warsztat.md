@@ -16,7 +16,7 @@ Do ćwiczenia używamy kodu jFTP i danych syntetycznych.
 
 Założenie do MR: w zwykłym profilu FTP porty od 1 do 65535 mają zostać zachowane, a wartości spoza zakresu mają użyć dotychczasowego portu domyślnego. Zachowanie portu implicit SSL ma pozostać takie jak wcześniej.
 
-1. [Uruchom tymczasową sesję `glab`](#glab-na-koncie-szkoleniowym-w-powershellu), sklonuj gałąź MR i uruchom lokalnego Codexa z dostępem do klonu jFTP. W przeglądarce możesz też otworzyć gotowe komentarze i logi obu jobów.
+1. [Zaloguj się w `glab`](#logowanie-w-glab) albo [uruchom tymczasową sesję PowerShell](#glab-na-koncie-szkoleniowym-w-powershellu). Sklonuj gałąź MR i uruchom lokalnego Codexa z dostępem do klonu jFTP. W przeglądarce możesz też otworzyć gotowe komentarze i logi obu jobów.
 2. Poproś Codexa ze skillem `$respond-to-code-review` o pobranie dyskusji i diffu przez `glab`, zweryfikowanie jednej uwagi w kodzie i pokazanie dowodu w teście. Oba boty wskazały tę samą wartość graniczną, więc sprawdź, czy ich zgodność wynika z kodu.
 3. Po sprawdzeniu propozycji pozwól Codexowi dodać test do `RemoteHostCharacterizationTest` i uruchomić go na wersji z MR, a potem po lokalnej poprawce. Poproś o krótką odpowiedź z wynikiem przed jej opublikowaniem. Na wspólnym MR możesz skomentować po weryfikacji. Własny commit i ponowne uruchomienie review zrobisz w osobnym MR.
 
@@ -77,6 +77,22 @@ this.port = port <= 1 || port > 65535 ? FTPConstants.DEFAULT_PORT : port;
 ```
 
 W opisie MR podaj, że zakres `1–65535` jest domknięty, a nieprawidłowy port ma używać wartości domyślnej. Uruchom oba review. Po ich zakończeniu zleć lokalnemu Codexowi zweryfikowanie komentarzy przez `$respond-to-code-review`, tym razem z linkiem do Twojego MR. Sprawdź, czy agent potrafi odtworzyć przypadek dla portu `1`. Dopisz test, popraw granicę na `port <= 0`, ponów oba joby dla nowego commita i zatwierdź odpowiedź Codexa na komentarze. Porównaj też, czy ponowne uruchomienie aktualizuje komentarz, czy publikuje nowy.
+
+## Logowanie w glab
+
+Uruchom polecenie, wybierz logowanie tokenem i wklej swój Personal Access Token w polu logowania.
+
+```sh
+glab auth login --hostname gitlab-devpowers.polandcentral.cloudapp.azure.com
+```
+
+Sprawdź dostęp do komentarzy. Pełny URL projektu wskazuje szkoleniowy host także wtedy, gdy domyślny host w `glab` jest inny.
+
+```sh
+glab mr view 1 --repo https://gitlab-devpowers.polandcentral.cloudapp.azure.com/lucas/dogrywka-jftp --comments
+```
+
+Możesz też użyć `glab-szkolenie.ps1`, który po podaniu tokenu przygotowuje dostęp do projektu na czas sesji PowerShell.
 
 ## glab na koncie szkoleniowym w PowerShellu
 
