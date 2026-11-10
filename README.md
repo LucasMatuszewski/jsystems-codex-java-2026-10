@@ -48,6 +48,21 @@ Stan Codex trafi do `%LOCALAPPDATA%\JSystems\Codex-Java-2026-10` poza repozytori
 
 Izolacja obejmuje logowanie, konfigurację i lokalny stan Codex CLI. Dostęp do plików zależy od uprawnień Windows i sandboxu Codex. Do ćwiczeń używaj repozytoriów szkoleniowych. Wtyczki IDE uruchamiają własne procesy. Jeżeli firmowa polityka blokuje skrypt lub logowanie, skorzystaj z maszyny szkoleniowej.
 
+### Linux (Bash)
+
+W terminalu Bash wejdź do tego repozytorium. Użyj osobnego profilu przeglądarki z kontem szkoleniowym, tak jak w instrukcji powyżej.
+
+```bash
+git pull
+bash ./codex-szkolenie.sh login
+bash ./codex-szkolenie.sh login status
+bash ./codex-szkolenie.sh
+```
+
+Gdy potrzebujesz kodu urządzenia, użyj `bash ./codex-szkolenie.sh login --device-auth`. Po zajęciach możesz wylogować konto szkoleniowe przez `bash ./codex-szkolenie.sh logout`.
+
+Launcher zapisuje stan w `${XDG_DATA_HOME:-$HOME/.local/share}/JSystems/Codex-Java-2026-10` i ustawia `CODEX_HOME` oraz `CODEX_SQLITE_HOME` dla uruchamianego procesu Codex. Uruchamiaj plik poleceniem `bash`.
+
 ## Projekty ćwiczeniowe
 
 **GitLab i review w CI** — [od merge requesta do testu regresji](course-materials/exercises/gitlab-review-warsztat.md).
